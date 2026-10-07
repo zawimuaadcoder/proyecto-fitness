@@ -16,7 +16,7 @@ type IconProps = {
   size?: number;
 };
 
-function TodayIcon({ size = 16 }: IconProps) {
+function HomeIcon({ size = 15 }: IconProps) {
   return (
     <svg
       width={size}
@@ -28,14 +28,14 @@ function TodayIcon({ size = 16 }: IconProps) {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <rect x="3" y="4" width="18" height="17" rx="3" />
-      <path d="M8 2v4M16 2v4M3 9h18" />
-      <path d="m9 15 2 2 4-4" />
+      <rect x="4" y="4" width="16" height="16" rx="4" />
+      <path d="M8 2v4M16 2v4M4 9h16" />
+      <path d="m9 14 2 2 4-4" />
     </svg>
   );
 }
 
-function ProgressIcon({ size = 16 }: IconProps) {
+function ProgressIcon({ size = 15 }: IconProps) {
   return (
     <svg
       width={size}
@@ -47,15 +47,16 @@ function ProgressIcon({ size = 16 }: IconProps) {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d="M4 19V9" />
-      <path d="M10 19V5" />
-      <path d="M16 19v-7" />
-      <path d="M22 19H2" />
+      <path d="M5 19V11" />
+      <path d="M10 19V6" />
+      <path d="M15 19v-4" />
+      <path d="M20 19V9" />
+      <path d="M3 19h18" />
     </svg>
   );
 }
 
-function TrainingIcon({ size = 16 }: IconProps) {
+function TrainingIcon({ size = 15 }: IconProps) {
   return (
     <svg
       width={size}
@@ -67,16 +68,14 @@ function TrainingIcon({ size = 16 }: IconProps) {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d="M6 7v10" />
-      <path d="M18 7v10" />
-      <path d="M3 9v6" />
-      <path d="M21 9v6" />
-      <path d="M6 12h12" />
+      <path d="M7 8v8M17 8v8" />
+      <path d="M4 10v4M20 10v4" />
+      <path d="M7 12h10" />
     </svg>
   );
 }
 
-function CardioIcon({ size = 16 }: IconProps) {
+function CardioIcon({ size = 15 }: IconProps) {
   return (
     <svg
       width={size}
@@ -93,7 +92,7 @@ function CardioIcon({ size = 16 }: IconProps) {
   );
 }
 
-function HabitsIcon({ size = 16 }: IconProps) {
+function HabitsIcon({ size = 15 }: IconProps) {
   return (
     <svg
       width={size}
@@ -111,7 +110,7 @@ function HabitsIcon({ size = 16 }: IconProps) {
   );
 }
 
-function SettingsIcon({ size = 16 }: IconProps) {
+function SettingsIcon({ size = 15 }: IconProps) {
   return (
     <svg
       width={size}
@@ -124,12 +123,12 @@ function SettingsIcon({ size = 16 }: IconProps) {
       strokeLinejoin="round"
     >
       <circle cx="12" cy="12" r="3" />
-      <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21h-4v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H3v-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.6V3h4v.1a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.1v4H21a1.7 1.7 0 0 0-1.6 1Z" />
+      <path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.4-2.4 1a7 7 0 0 0-1.7-1L14.5 3h-5L9 6.1a7 7 0 0 0-1.7 1l-2.4-1-2 3.4L5 11a7 7 0 0 0 0 2l-2.1 1.5 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.5 3.1h5l.5-3.1a7 7 0 0 0 1.7-1l2.4 1 2-3.4L19 13a7 7 0 0 0 .1-1Z" />
     </svg>
   );
 }
 
-function SwitchProfileIcon({ size = 16 }: IconProps) {
+function SwitchIcon({ size = 15 }: IconProps) {
   return (
     <svg
       width={size}
@@ -141,34 +140,15 @@ function SwitchProfileIcon({ size = 16 }: IconProps) {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <circle cx="9" cy="8" r="3" />
-      <path d="M3.5 18c.7-3 2.5-4.5 5.5-4.5 2 0 3.5.7 4.4 2" />
-      <path d="M16 7h5l-2-2" />
-      <path d="m21 7-2 2" />
-      <path d="M21 17h-5l2 2" />
-      <path d="m16 17 2-2" />
+      <path d="M7 7h11l-3-3" />
+      <path d="m18 7-3 3" />
+      <path d="M17 17H6l3 3" />
+      <path d="m6 17 3-3" />
     </svg>
   );
 }
 
-function CollapseIcon({ size = 16 }: IconProps) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m14 7-5 5 5 5" />
-    </svg>
-  );
-}
-
-function ChevronIcon({ size = 14 }: IconProps) {
+function ChevronLeft({ size = 14 }: IconProps) {
   return (
     <svg
       width={size}
@@ -180,7 +160,24 @@ function ChevronIcon({ size = 14 }: IconProps) {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <path d="m9 6 6 6-6 6" />
+      <path d="m14 7-5 5 5 5" />
+    </svg>
+  );
+}
+
+function ChevronDown({ size = 13 }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m6 9 6 6 6-6" />
     </svg>
   );
 }
@@ -201,7 +198,7 @@ export default function AppShell({
     {
       label: "Hoy",
       href: base,
-      icon: TodayIcon,
+      icon: HomeIcon,
     },
     {
       label: "Progreso",
@@ -225,7 +222,7 @@ export default function AppShell({
     },
   ];
 
-  function isActive(href: string) {
+  function active(href: string) {
     if (href === base) {
       return pathname === base;
     }
@@ -237,115 +234,110 @@ export default function AppShell({
     <div className="app-shell">
       <aside
         className={`sidebar ${
-          collapsed ? "sidebar-collapsed" : ""
+          collapsed ? "collapsed" : ""
         }`}
       >
-        <div className="sidebar-top">
-          <div className="logo-row">
-            <Link href={base} className="brand">
-              <span className="brand-mark">F</span>
+        <div className="sidebar-header">
+          <div className="brand">
+            <span className="brand-logo">F</span>
 
-              <span className="brand-text">
-                Fitness
-              </span>
-            </Link>
-
-            <button
-              type="button"
-              className="collapse-button"
-              onClick={() =>
-                setCollapsed((current) => !current)
-              }
-              aria-label={
-                collapsed
-                  ? "Expandir barra lateral"
-                  : "Contraer barra lateral"
-              }
-            >
-              <span
-                className={`collapse-icon ${
-                  collapsed ? "rotated" : ""
-                }`}
-              >
-                <CollapseIcon />
-              </span>
-            </button>
+            <span className="brand-name">
+              Fitness
+            </span>
           </div>
 
-          <Link
-            href="/"
-            className="profile-switcher"
-            title="Cambiar perfil"
+          <button
+            type="button"
+            className="collapse-btn"
+            onClick={() =>
+              setCollapsed((value) => !value)
+            }
+            aria-label="Contraer sidebar"
           >
             <span
-              className="profile-avatar"
-              style={{
-                background:
-                  profileColor || "#6f8cff",
-              }}
+              className={
+                collapsed
+                  ? "collapse-arrow flipped"
+                  : "collapse-arrow"
+              }
             >
-              {avatarUrl ? (
-                <img
-                  src={avatarUrl}
-                  alt={profileName}
-                />
-              ) : (
-                profileName
-                  .trim()
-                  .slice(0, 1)
-                  .toUpperCase()
-              )}
+              <ChevronLeft />
             </span>
-
-            <span className="profile-copy">
-              <span className="profile-label">
-                PERFIL
-              </span>
-
-              <span className="profile-name">
-                {profileName}
-              </span>
-            </span>
-
-            <span className="profile-chevron">
-              <ChevronIcon />
-            </span>
-          </Link>
+          </button>
         </div>
 
-        <div className="nav-section">
-          <span className="nav-heading">
+        <Link
+          href="/"
+          className="profile-card"
+        >
+          <span
+            className="profile-avatar"
+            style={{
+              background:
+                profileColor || "#6f8cff",
+            }}
+          >
+            {avatarUrl ? (
+              <img
+                src={avatarUrl}
+                alt={profileName}
+              />
+            ) : (
+              profileName
+                .trim()
+                .slice(0, 1)
+                .toUpperCase()
+            )}
+          </span>
+
+          <span className="profile-data">
+            <span className="profile-overline">
+              PERFIL
+            </span>
+
+            <span className="profile-name">
+              {profileName}
+            </span>
+          </span>
+
+          <span className="profile-arrow">
+            <ChevronDown />
+          </span>
+        </Link>
+
+        <div className="nav-block">
+          <span className="nav-title">
             PRINCIPAL
           </span>
 
           <nav className="nav-list">
             {navigation.map((item) => {
-              const active = isActive(item.href);
               const Icon = item.icon;
+              const selected = active(item.href);
 
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`nav-item ${
-                    active ? "active" : ""
-                  }`}
                   title={
                     collapsed
                       ? item.label
                       : undefined
                   }
+                  className={`nav-row ${
+                    selected ? "selected" : ""
+                  }`}
                 >
                   <span className="nav-icon">
                     <Icon />
                   </span>
 
-                  <span className="nav-label">
+                  <span className="nav-text">
                     {item.label}
                   </span>
 
-                  {active && (
-                    <span className="active-dot" />
+                  {selected && (
+                    <span className="nav-selected-dot" />
                   )}
                 </Link>
               );
@@ -353,80 +345,77 @@ export default function AppShell({
           </nav>
         </div>
 
-        <div className="sidebar-spacer" />
+        <div className="sidebar-space" />
 
-        <div className="sidebar-footer">
+        <div className="sidebar-bottom">
           <Link
             href={`${base}/settings`}
-            className={`footer-item ${
+            className={`nav-row ${
               pathname.startsWith(
                 `${base}/settings`
               )
-                ? "active"
+                ? "selected"
                 : ""
             }`}
-            title={
-              collapsed ? "Ajustes" : undefined
-            }
           >
             <span className="nav-icon">
               <SettingsIcon />
             </span>
 
-            <span className="nav-label">
+            <span className="nav-text">
               Ajustes
             </span>
           </Link>
 
           <Link
             href="/"
-            className="footer-item"
-            title={
-              collapsed
-                ? "Cambiar perfil"
-                : undefined
-            }
+            className="nav-row"
           >
             <span className="nav-icon">
-              <SwitchProfileIcon />
+              <SwitchIcon />
             </span>
 
-            <span className="nav-label">
+            <span className="nav-text">
               Cambiar perfil
             </span>
           </Link>
 
-          <div className="version-row">
-            <span className="version-dot" />
-            <span className="version-text">
-              Proyecto Fitness · v0.1
+          <div className="sidebar-status">
+            <span className="status-dot" />
+
+            <span className="status-text">
+              Sincronizado
             </span>
           </div>
         </div>
       </aside>
 
-      <main className="content">
+      <main
+        className={`app-content ${
+          collapsed ? "content-collapsed" : ""
+        }`}
+      >
         {children}
       </main>
 
-      <nav className="mobile-nav">
+      <nav className="mobile-navigation">
         {navigation.map((item) => {
-          const active = isActive(item.href);
           const Icon = item.icon;
+          const selected = active(item.href);
 
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`mobile-nav-item ${
-                active ? "active" : ""
+              className={`mobile-item ${
+                selected ? "selected" : ""
               }`}
             >
               <span className="mobile-icon">
                 <Icon size={17} />
               </span>
 
-              <span className="mobile-label">
+              <span className="mobile-text">
                 {item.label}
               </span>
             </Link>
@@ -434,187 +423,173 @@ export default function AppShell({
         })}
       </nav>
 
-      <style jsx>{`
+      <style>{`
         .app-shell {
           min-height: 100vh;
-          display: flex;
           background: #0c0c0e;
-          color: #f2f2f3;
+          color: #f3f3f4;
         }
 
         .sidebar {
           position: fixed;
-          inset: 0 auto 0 0;
           z-index: 50;
+          top: 0;
+          bottom: 0;
+          left: 0;
 
-          width: 224px;
-          height: 100vh;
+          width: 220px;
 
           display: flex;
           flex-direction: column;
 
-          padding: 10px;
+          padding: 12px 10px 11px;
+
+          background: #0f0f12;
 
           border-right:
-            1px solid rgba(255, 255, 255, 0.055);
-
-          background:
-            rgba(15, 15, 18, 0.97);
+            1px solid rgba(255,255,255,.055);
 
           transition:
-            width 280ms cubic-bezier(
-              0.23,
-              1,
-              0.32,
-              1
-            );
+            width 280ms
+            cubic-bezier(.23,1,.32,1);
         }
 
-        .sidebar-collapsed {
-          width: 54px;
-        }
-
-        .sidebar-top {
-          display: flex;
-          flex-direction: column;
-          gap: 9px;
-        }
-
-        .logo-row {
-          height: 34px;
+        .sidebar-header {
+          height: 36px;
 
           display: flex;
           align-items: center;
+          justify-content: space-between;
 
-          overflow: hidden;
+          padding: 0 4px;
+
+          margin-bottom: 10px;
         }
 
         .brand {
           min-width: 0;
-          flex: 1;
 
           display: flex;
           align-items: center;
-          gap: 8px;
+
+          gap: 9px;
 
           overflow: hidden;
         }
 
-        .brand-mark {
-          width: 28px;
-          height: 28px;
-          flex: 0 0 28px;
-
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          border-radius: 8px;
-
-          background: #eeeeef;
-          color: #111113;
-
-          font-size: 11px;
-          font-weight: 750;
-
-          box-shadow:
-            0 0 0 1px
-              rgba(255,255,255,.08),
-            0 2px 8px
-              rgba(0,0,0,.2);
-        }
-
-        .brand-text {
-          color: #e0e0e3;
-
-          font-size: 12.5px;
-          font-weight: 620;
-
-          letter-spacing: -.015em;
-
-          white-space: nowrap;
-
-          opacity: 1;
-          transform: translateX(0);
-
-          transition:
-            opacity 160ms ease,
-            transform 220ms
-              cubic-bezier(.23,1,.32,1);
-        }
-
-        .collapse-button {
+        .brand-logo {
           width: 26px;
           height: 26px;
+
           flex: 0 0 26px;
 
           display: flex;
           align-items: center;
           justify-content: center;
 
-          padding: 0;
-
-          border: 0;
           border-radius: 7px;
 
-          background: transparent;
-          color: #5d5d66;
+          background: #ededee;
+          color: #101012;
+
+          font-size: 10px;
+          font-weight: 750;
+
+          box-shadow:
+            0 1px 0 rgba(255,255,255,.35) inset,
+            0 1px 5px rgba(0,0,0,.24);
+        }
+
+        .brand-name {
+          color: #d7d7db;
+
+          font-size: 12px;
+          font-weight: 620;
+
+          letter-spacing: -.015em;
+
+          white-space: nowrap;
 
           transition:
-            color 130ms ease,
-            background-color 130ms ease;
+            opacity 130ms ease,
+            transform 200ms ease;
         }
 
-        .collapse-button:hover {
-          background: #19191d;
-          color: #a5a5ad;
-        }
+        .collapse-btn {
+          width: 26px;
+          height: 26px;
 
-        .collapse-icon {
-          display: flex;
-
-          transition:
-            transform 280ms
-              cubic-bezier(.23,1,.32,1);
-        }
-
-        .collapse-icon.rotated {
-          transform: rotate(180deg);
-        }
-
-        .profile-switcher {
-          position: relative;
-
-          height: 50px;
+          flex: 0 0 26px;
 
           display: flex;
           align-items: center;
+          justify-content: center;
+
+          border: 0;
+
+          border-radius: 7px;
+
+          padding: 0;
+
+          background: transparent;
+
+          color: #53535c;
+        }
+
+        .collapse-btn:hover {
+          background: #18181c;
+          color: #95959d;
+        }
+
+        .collapse-arrow {
+          display: flex;
+
+          transition:
+            transform 260ms
+            cubic-bezier(.23,1,.32,1);
+        }
+
+        .collapse-arrow.flipped {
+          transform: rotate(180deg);
+        }
+
+        .profile-card {
+          min-width: 0;
+          height: 48px;
+
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
           gap: 9px;
 
           padding: 6px;
 
           overflow: hidden;
 
-          border: 1px solid
-            rgba(255,255,255,.055);
-          border-radius: 11px;
+          border:
+            1px solid rgba(255,255,255,.055);
+
+          border-radius: 10px;
 
           background: #141417;
 
           transition:
-            background-color 130ms ease,
-            border-color 130ms ease;
+            background-color 120ms ease,
+            border-color 120ms ease;
         }
 
-        .profile-switcher:hover {
+        .profile-card:hover {
           background: #18181c;
+
           border-color:
-            rgba(255,255,255,.085);
+            rgba(255,255,255,.08);
         }
 
         .profile-avatar {
           width: 34px;
           height: 34px;
+
           flex: 0 0 34px;
 
           display: flex;
@@ -625,41 +600,40 @@ export default function AppShell({
 
           border-radius: 9px;
 
-          color: #fff;
+          color: white;
 
           font-size: 12px;
           font-weight: 650;
 
           box-shadow:
             0 0 0 1px
-              rgba(255,255,255,.09)
-              inset;
+            rgba(255,255,255,.08)
+            inset;
         }
 
         .profile-avatar img {
           width: 100%;
           height: 100%;
+
           object-fit: cover;
         }
 
-        .profile-copy {
+        .profile-data {
           min-width: 0;
           flex: 1;
 
           display: flex;
           flex-direction: column;
-          gap: 2px;
 
-          opacity: 1;
+          gap: 1px;
 
-          transition:
-            opacity 150ms ease;
+          overflow: hidden;
         }
 
-        .profile-label {
-          color: #55555e;
+        .profile-overline {
+          color: #52525a;
 
-          font-size: 8px;
+          font-size: 7.5px;
           font-weight: 700;
 
           letter-spacing: .12em;
@@ -668,67 +642,65 @@ export default function AppShell({
         .profile-name {
           overflow: hidden;
 
-          color: #d8d8dc;
+          color: #d6d6da;
 
-          font-size: 11.5px;
+          font-size: 11px;
           font-weight: 560;
 
           text-overflow: ellipsis;
           white-space: nowrap;
         }
 
-        .profile-chevron {
+        .profile-arrow {
+          width: 18px;
+
+          flex: 0 0 18px;
+
           display: flex;
+          align-items: center;
+          justify-content: center;
 
-          color: #4f4f57;
-
-          transition:
-            color 130ms ease,
-            transform 130ms ease;
+          color: #55555d;
         }
 
-        .profile-switcher:hover
-          .profile-chevron {
-          color: #8d8d96;
-          transform: translateX(1px);
-        }
-
-        .nav-section {
+        .nav-block {
           margin-top: 20px;
         }
 
-        .nav-heading {
+        .nav-title {
           display: block;
 
-          margin: 0 8px 7px;
+          height: 20px;
 
-          color: #484850;
+          padding: 0 8px;
 
-          font-size: 8px;
+          color: #44444c;
+
+          font-size: 7.5px;
           font-weight: 700;
 
           letter-spacing: .13em;
 
           white-space: nowrap;
-
-          transition:
-            opacity 150ms ease;
         }
 
         .nav-list {
           display: flex;
           flex-direction: column;
+
           gap: 2px;
         }
 
-        .nav-item,
-        .footer-item {
+        .nav-row {
           position: relative;
 
+          width: 100%;
           height: 34px;
 
           display: flex;
+          flex-direction: row;
           align-items: center;
+
           gap: 9px;
 
           padding: 0 8px;
@@ -737,41 +709,35 @@ export default function AppShell({
 
           border-radius: 8px;
 
-          color: #74747e;
+          color: #71717a;
 
           transition:
-            background-color 130ms ease,
-            color 130ms ease,
-            transform 120ms ease;
+            background-color 120ms ease,
+            color 120ms ease;
         }
 
-        .nav-item:hover,
-        .footer-item:hover {
-          background: #17171a;
-          color: #b7b7be;
+        .nav-row:hover {
+          background: #16161a;
+          color: #b7b7bd;
         }
 
-        .nav-item:active,
-        .footer-item:active {
-          transform: scale(.985);
+        .nav-row.selected {
+          background: #19191d;
+          color: #eeeeef;
         }
 
-        .nav-item.active,
-        .footer-item.active {
-          background: #1a1a1e;
-          color: #ededee;
-        }
-
-        .nav-item.active::before {
+        .nav-row.selected::before {
           content: "";
 
           position: absolute;
+
           left: 0;
+          top: 9px;
 
           width: 2px;
-          height: 14px;
+          height: 16px;
 
-          border-radius: 0 3px 3px 0;
+          border-radius: 0 2px 2px 0;
 
           background: #6f8cff;
         }
@@ -779,6 +745,7 @@ export default function AppShell({
         .nav-icon {
           width: 18px;
           height: 18px;
+
           flex: 0 0 18px;
 
           display: flex;
@@ -786,53 +753,49 @@ export default function AppShell({
           justify-content: center;
         }
 
-        .nav-label {
+        .nav-text {
           min-width: 0;
 
-          font-size: 11.5px;
+          font-size: 11px;
           font-weight: 520;
 
           white-space: nowrap;
 
-          opacity: 1;
-          transform: translateX(0);
-
           transition:
-            opacity 150ms ease,
-            transform 220ms
-              cubic-bezier(.23,1,.32,1);
+            opacity 120ms ease,
+            transform 180ms ease;
         }
 
-        .active-dot {
+        .nav-selected-dot {
           width: 4px;
           height: 4px;
 
+          flex: 0 0 4px;
+
           margin-left: auto;
 
-          border-radius: 999px;
+          border-radius: 50%;
 
           background: #6f8cff;
-
-          box-shadow:
-            0 0 7px
-              rgba(111,140,255,.4);
         }
 
-        .sidebar-spacer {
+        .sidebar-space {
           flex: 1;
         }
 
-        .sidebar-footer {
+        .sidebar-bottom {
           display: flex;
           flex-direction: column;
+
           gap: 2px;
         }
 
-        .version-row {
+        .sidebar-status {
           height: 31px;
 
           display: flex;
           align-items: center;
+
           gap: 6px;
 
           padding: 0 8px;
@@ -840,128 +803,113 @@ export default function AppShell({
           overflow: hidden;
         }
 
-        .version-dot {
+        .status-dot {
           width: 5px;
           height: 5px;
+
           flex: 0 0 5px;
 
           border-radius: 50%;
 
-          background: #3caf7d;
+          background: #3bb27d;
         }
 
-        .version-text {
-          color: #424249;
+        .status-text {
+          color: #42424a;
 
           font-size: 8.5px;
 
           white-space: nowrap;
-
-          transition:
-            opacity 150ms ease;
         }
 
-        .sidebar-collapsed
-          .brand-text,
-        .sidebar-collapsed
-          .profile-copy,
-        .sidebar-collapsed
-          .profile-chevron,
-        .sidebar-collapsed
-          .nav-heading,
-        .sidebar-collapsed
-          .nav-label,
-        .sidebar-collapsed
-          .active-dot,
-        .sidebar-collapsed
-          .version-text {
+        .collapsed {
+          width: 54px;
+        }
+
+        .collapsed .brand-name,
+        .collapsed .profile-data,
+        .collapsed .profile-arrow,
+        .collapsed .nav-title,
+        .collapsed .nav-text,
+        .collapsed .nav-selected-dot,
+        .collapsed .status-text {
           opacity: 0;
           pointer-events: none;
         }
 
-        .sidebar-collapsed
-          .brand-text,
-        .sidebar-collapsed
-          .nav-label {
-          transform: translateX(-5px);
+        .collapsed .sidebar-header {
+          justify-content: center;
+          padding: 0;
         }
 
-        .sidebar-collapsed
-          .collapse-button {
+        .collapsed .collapse-btn {
           display: none;
         }
 
-        .sidebar-collapsed
-          .profile-switcher {
-          padding: 5px 0;
-
+        .collapsed .profile-card {
           justify-content: center;
 
+          padding: 6px 0;
+
           border-color: transparent;
+
           background: transparent;
         }
 
-        .sidebar-collapsed
-          .profile-avatar {
+        .collapsed .profile-avatar {
           width: 32px;
           height: 32px;
+
           flex-basis: 32px;
         }
 
-        .sidebar-collapsed
-          .nav-item,
-        .sidebar-collapsed
-          .footer-item {
+        .collapsed .nav-row {
           justify-content: center;
+
           padding: 0;
         }
 
-        .sidebar-collapsed
-          .nav-item.active::before {
-          left: -1px;
-        }
-
-        .sidebar-collapsed
-          .version-row {
+        .collapsed .sidebar-status {
           justify-content: center;
+
           padding: 0;
         }
 
-        .content {
-          width: 100%;
-          min-width: 0;
+        .app-content {
+          min-height: 100vh;
 
-          margin-left: 224px;
+          margin-left: 220px;
 
           transition:
             margin-left 280ms
-              cubic-bezier(.23,1,.32,1);
+            cubic-bezier(.23,1,.32,1);
         }
 
-        .sidebar-collapsed + .content {
+        .app-content.content-collapsed {
           margin-left: 54px;
         }
 
-        .mobile-nav {
+        .mobile-navigation {
           display: none;
         }
 
-        @media (max-width: 720px) {
+        @media (max-width: 760px) {
           .sidebar {
-            display: none;
+            display: none !important;
           }
 
-          .content,
-          .sidebar-collapsed + .content {
+          .app-content,
+          .app-content.content-collapsed {
             margin-left: 0;
           }
 
-          .content {
-            padding-bottom: 76px;
+          .app-content {
+            padding-bottom: 78px;
           }
 
-          .mobile-nav {
+          .mobile-navigation {
             position: fixed;
+
             z-index: 100;
 
             left: 10px;
@@ -971,8 +919,11 @@ export default function AppShell({
             height: 58px;
 
             display: grid;
+
             grid-template-columns:
-              repeat(5, 1fr);
+              repeat(5, minmax(0, 1fr));
+
+            gap: 2px;
 
             padding: 5px;
 
@@ -983,53 +934,44 @@ export default function AppShell({
             border-radius: 16px;
 
             background:
-              rgba(18,18,21,.94);
+              rgba(17,17,20,.94);
 
             box-shadow:
-              0 12px 35px
-                rgba(0,0,0,.42),
-              0 1px 0
-                rgba(255,255,255,.035)
-                inset;
+              0 14px 40px
+              rgba(0,0,0,.42);
 
             backdrop-filter: blur(18px);
             -webkit-backdrop-filter:
               blur(18px);
           }
 
-          .mobile-nav-item {
+          .mobile-item {
             position: relative;
+
+            min-width: 0;
 
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+
             gap: 3px;
 
-            border-radius: 11px;
+            border-radius: 10px;
 
-            color: #5f5f68;
-
-            transition:
-              background-color 130ms ease,
-              color 130ms ease,
-              transform 120ms ease;
+            color: #5e5e67;
           }
 
-          .mobile-nav-item:active {
-            transform: scale(.94);
+          .mobile-item.selected {
+            background: #1a1a1e;
+            color: #eeeeef;
           }
 
-          .mobile-nav-item.active {
-            background: #1c1c21;
-            color: #ededee;
-          }
-
-          .mobile-nav-item.active::before {
+          .mobile-item.selected::before {
             content: "";
 
             position: absolute;
-            top: 4px;
+            top: 3px;
 
             width: 14px;
             height: 2px;
@@ -1047,9 +989,16 @@ export default function AppShell({
             justify-content: center;
           }
 
-          .mobile-label {
-            font-size: 8.5px;
+          .mobile-text {
+            overflow: hidden;
+
+            max-width: 100%;
+
+            font-size: 8px;
             font-weight: 560;
+
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
         }
 
@@ -1057,10 +1006,8 @@ export default function AppShell({
           prefers-reduced-motion: reduce
         ) {
           .sidebar,
-          .content,
-          .collapse-icon,
-          .brand-text,
-          .nav-label {
+          .app-content,
+          .collapse-arrow {
             transition: none;
           }
         }

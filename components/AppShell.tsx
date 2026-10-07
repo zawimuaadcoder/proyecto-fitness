@@ -240,10 +240,7 @@ export default function AppShell({
         <div className="sidebar-header">
           <div className="brand">
             <span className="brand-logo">F</span>
-
-            <span className="brand-name">
-              Fitness
-            </span>
+            <span className="brand-name">Fitness</span>
           </div>
 
           <button
@@ -266,10 +263,7 @@ export default function AppShell({
           </button>
         </div>
 
-        <Link
-          href="/"
-          className="profile-card"
-        >
+        <Link href="/" className="profile-card">
           <span
             className="profile-avatar"
             style={{
@@ -367,10 +361,7 @@ export default function AppShell({
             </span>
           </Link>
 
-          <Link
-            href="/"
-            className="nav-row"
-          >
+          <Link href="/" className="nav-row">
             <span className="nav-icon">
               <SwitchIcon />
             </span>
@@ -382,7 +373,6 @@ export default function AppShell({
 
           <div className="sidebar-status">
             <span className="status-dot" />
-
             <span className="status-text">
               Sincronizado
             </span>
@@ -395,7 +385,9 @@ export default function AppShell({
           collapsed ? "content-collapsed" : ""
         }`}
       >
-        {children}
+        <div className="content-shell">
+          {children}
+        </div>
       </main>
 
       <nav className="mobile-navigation">
@@ -526,13 +518,11 @@ export default function AppShell({
           justify-content: center;
 
           border: 0;
-
           border-radius: 7px;
 
           padding: 0;
 
           background: transparent;
-
           color: #53535c;
         }
 
@@ -889,8 +879,182 @@ export default function AppShell({
           margin-left: 54px;
         }
 
+        .content-shell {
+          width: 100%;
+          max-width: 1600px;
+          margin: 0 auto;
+        }
+
         .mobile-navigation {
           display: none;
+        }
+
+        @media (min-width: 1440px) {
+          .sidebar {
+            width: 232px;
+            padding-left: 12px;
+            padding-right: 12px;
+          }
+
+          .app-content {
+            margin-left: 232px;
+          }
+
+          .collapsed {
+            width: 58px;
+          }
+
+          .app-content.content-collapsed {
+            margin-left: 58px;
+          }
+
+          .brand-logo {
+            width: 28px;
+            height: 28px;
+            flex-basis: 28px;
+          }
+
+          .profile-card {
+            height: 50px;
+          }
+
+          .profile-avatar {
+            width: 36px;
+            height: 36px;
+            flex-basis: 36px;
+          }
+
+          .nav-row {
+            height: 36px;
+          }
+
+          .nav-text {
+            font-size: 11.5px;
+          }
+        }
+
+        @media (min-width: 1920px) {
+          .sidebar {
+            width: 248px;
+            padding: 16px 14px 14px;
+          }
+
+          .app-content {
+            margin-left: 248px;
+          }
+
+          .collapsed {
+            width: 60px;
+          }
+
+          .app-content.content-collapsed {
+            margin-left: 60px;
+          }
+
+          .content-shell {
+            max-width: 1720px;
+          }
+
+          .sidebar-header {
+            height: 40px;
+          }
+
+          .brand-logo {
+            width: 30px;
+            height: 30px;
+            flex-basis: 30px;
+            font-size: 11px;
+          }
+
+          .brand-name {
+            font-size: 13px;
+          }
+
+          .profile-card {
+            height: 54px;
+          }
+
+          .profile-avatar {
+            width: 38px;
+            height: 38px;
+            flex-basis: 38px;
+          }
+
+          .profile-name {
+            font-size: 11.5px;
+          }
+
+          .nav-block {
+            margin-top: 24px;
+          }
+
+          .nav-row {
+            height: 38px;
+          }
+
+          .nav-icon {
+            width: 19px;
+            height: 19px;
+          }
+
+          .nav-text {
+            font-size: 12px;
+          }
+        }
+
+        @media (min-width: 2560px) {
+          .sidebar {
+            width: 264px;
+            padding: 18px 16px 16px;
+          }
+
+          .app-content {
+            margin-left: 264px;
+          }
+
+          .collapsed {
+            width: 64px;
+          }
+
+          .app-content.content-collapsed {
+            margin-left: 64px;
+          }
+
+          .content-shell {
+            max-width: 1900px;
+          }
+
+          .brand-logo {
+            width: 32px;
+            height: 32px;
+            flex-basis: 32px;
+          }
+
+          .brand-name {
+            font-size: 13.5px;
+          }
+
+          .profile-card {
+            height: 56px;
+          }
+
+          .profile-avatar {
+            width: 40px;
+            height: 40px;
+            flex-basis: 40px;
+          }
+
+          .nav-row {
+            height: 40px;
+          }
+
+          .nav-text {
+            font-size: 12.5px;
+          }
+
+          .nav-title {
+            font-size: 8px;
+          }
         }
 
         @media (max-width: 760px) {

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 
 export default async function Home() {
@@ -29,17 +30,10 @@ export default async function Home() {
   return (
     <main className="profile-page">
       <section className="profile-shell">
-
-        {/* HEADER */}
         <header className="topbar">
           <div className="brand">
-            <span className="brand-mark">
-              F
-            </span>
-
-            <span className="brand-copy">
-              Fitness
-            </span>
+            <span className="brand-mark">F</span>
+            <span className="brand-copy">Fitness</span>
           </div>
 
           <span className="sync-pill">
@@ -48,18 +42,14 @@ export default async function Home() {
           </span>
         </header>
 
-        {/* MAIN CARD */}
         <div className="selector-card">
-
           <div className="selector-header">
             <div>
               <p className="section-kicker">
                 PERFILES
               </p>
 
-              <h1>
-                ¿Quién entrena hoy?
-              </h1>
+              <h1>¿Quién entrena hoy?</h1>
 
               <p className="subtitle">
                 Selecciona un perfil para continuar.
@@ -84,8 +74,7 @@ export default async function Home() {
                 <span
                   className="avatar"
                   style={{
-                    background:
-                      profile.color || "#6f8cff",
+                    background: profile.color || "#6f8cff",
                   }}
                 >
                   {profile.avatar_url ? (
@@ -156,8 +145,8 @@ export default async function Home() {
               </button>
             ))}
 
-            <button
-              type="button"
+            <Link
+              href="/create-profile"
               className="profile-row add-row"
             >
               <span className="add-avatar">
@@ -198,7 +187,7 @@ export default async function Home() {
                   <path d="m9 6 6 6-6 6" />
                 </svg>
               </span>
-            </button>
+            </Link>
           </div>
 
           <div className="selector-footer">
@@ -212,7 +201,6 @@ export default async function Home() {
           </div>
         </div>
 
-        {/* MICRO FOOTER */}
         <footer className="page-footer">
           <span>Proyecto Fitness</span>
           <span className="footer-dot" />
@@ -379,6 +367,7 @@ export default async function Home() {
           background: transparent;
           color: inherit;
           text-align: left;
+          text-decoration: none;
           outline: none;
           animation:
             row-enter 380ms
@@ -477,8 +466,7 @@ export default async function Home() {
           justify-content: center;
           color: #515159;
           transition:
-            transform 150ms
-            cubic-bezier(.16,1,.3,1),
+            transform 150ms cubic-bezier(.16,1,.3,1),
             color 150ms ease;
         }
 
@@ -646,9 +634,7 @@ export default async function Home() {
           }
         }
 
-        @media (
-          prefers-reduced-motion: reduce
-        ) {
+        @media (prefers-reduced-motion: reduce) {
           .selector-card,
           .profile-row {
             animation: none;

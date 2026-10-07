@@ -63,9 +63,9 @@ export default async function Home() {
 
           <div className="profile-list">
             {profiles?.map((profile, index) => (
-              <button
+              <Link
                 key={profile.id}
-                type="button"
+                href={`/profile/${profile.id}`}
                 className="profile-row"
                 style={{
                   animationDelay: `${index * 55}ms`,
@@ -80,7 +80,7 @@ export default async function Home() {
                   {profile.avatar_url ? (
                     <img
                       src={profile.avatar_url}
-                      alt=""
+                      alt={profile.name}
                     />
                   ) : (
                     profile.name
@@ -142,7 +142,7 @@ export default async function Home() {
                     <path d="m9 6 6 6-6 6" />
                   </svg>
                 </span>
-              </button>
+              </Link>
             ))}
 
             <Link

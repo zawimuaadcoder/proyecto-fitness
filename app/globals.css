@@ -347,6 +347,94 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   animation: check-draw 320ms var(--ease-out) both;
 }
 
+/* ---- Llama de racha (components/ui/Flame.tsx) ---- */
+@keyframes flame-flicker-outer {
+  0%, 100% { transform: scaleY(1) skewX(0deg) translateY(0); }
+  30% { transform: scaleY(1.04) skewX(-2deg) translateY(-0.5px); }
+  60% { transform: scaleY(0.94) skewX(1.5deg) translateY(1px); }
+  80% { transform: scaleY(1.02) skewX(2deg) translateY(0); }
+}
+@keyframes flame-flicker-mid {
+  0%, 100% { transform: scaleY(1) skewX(0deg) translateY(0); }
+  25% { transform: scaleY(0.95) skewX(2deg) translateY(1px); }
+  55% { transform: scaleY(1.04) skewX(-2deg) translateY(0); }
+  80% { transform: scaleY(0.98) skewX(1deg) translateY(0.5px); }
+}
+@keyframes flame-flicker-core {
+  0%, 100% { transform: scaleY(1) skewX(0deg) translateY(0); }
+  35% { transform: scaleY(1.04) skewX(2deg) translateY(0); }
+  70% { transform: scaleY(0.94) skewX(-2deg) translateY(1px); }
+}
+@keyframes flame-glow {
+  0%, 100% { opacity: 0.28; transform: scale(0.94); }
+  50% { opacity: 0.42; transform: scale(1.06); }
+}
+@keyframes flame-pop {
+  0% { transform: scale(0.4); }
+  45% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+@keyframes flame-color-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes flame-grey-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes flame-ring {
+  0% { transform: scale(0.5); opacity: 0.7; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+@keyframes flame-spark {
+  0% { transform: translate(0, 0) scale(1); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translate(var(--flame-dx, 0px), calc(var(--flame-rise, 1) * -1em)) scale(0.2); opacity: 0; }
+}
+.flame-root { position: relative; display: inline-block; flex: none; }
+.flame-svg { position: relative; display: block; width: 100%; height: 100%; overflow: visible; }
+.flame-layer { transform-box: fill-box; transform-origin: 50% 100%; }
+.flame-color { opacity: 0; }
+.flame-grey { opacity: 1; }
+.flame-on .flame-color, .flame-igniting .flame-color { opacity: 1; }
+.flame-on .flame-grey, .flame-igniting .flame-grey { opacity: 0; }
+.flame-glow {
+  position: absolute; left: 50%; bottom: 8%; width: 150%; height: 110%;
+  translate: -50% 0; border-radius: 9999px; pointer-events: none;
+  background: radial-gradient(closest-side, oklch(0.72 0.19 50), transparent);
+  filter: blur(6px); opacity: 0;
+}
+.flame-on .flame-glow { opacity: 0.35; animation: flame-glow 3.2s ease-in-out infinite; }
+.flame-on .flame-outer { animation: flame-flicker-outer 1.6s ease-in-out infinite; }
+.flame-on .flame-mid { animation: flame-flicker-mid 1.2s ease-in-out infinite; }
+.flame-on .flame-core { animation: flame-flicker-core 0.9s ease-in-out infinite; }
+.flame-ring, .flame-spark { display: none; }
+
+.flame-igniting .flame-svg { transform-origin: 50% 100%; animation: flame-pop 1100ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.flame-igniting .flame-color { animation: flame-color-in 900ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.flame-igniting .flame-grey { animation: flame-grey-out 700ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.flame-igniting .flame-glow { animation: flame-color-in 900ms cubic-bezier(0.16, 1, 0.3, 1) both, flame-glow 3.2s ease-in-out 1100ms infinite; }
+.flame-igniting .flame-outer { animation: flame-flicker-outer 1.6s ease-in-out 1100ms infinite; }
+.flame-igniting .flame-mid { animation: flame-flicker-mid 1.2s ease-in-out 1100ms infinite; }
+.flame-igniting .flame-core { animation: flame-flicker-core 0.9s ease-in-out 1100ms infinite; }
+.flame-igniting .flame-ring {
+  display: block; position: absolute; left: 50%; bottom: 10%; width: 100%; aspect-ratio: 1;
+  translate: -50% 0; border-radius: 9999px; border: 1.5px solid oklch(0.75 0.18 55);
+  pointer-events: none; animation: flame-ring 1000ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.flame-igniting .flame-spark {
+  display: block; position: absolute; left: 50%; bottom: 35%; width: 2px; height: 2px;
+  margin-left: -1px; border-radius: 9999px; background: oklch(0.85 0.15 75); pointer-events: none;
+  opacity: 0; animation: flame-spark 900ms cubic-bezier(0.16, 1, 0.3, 1) var(--flame-delay, 0ms) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .flame-root .flame-layer, .flame-root .flame-glow, .flame-root .flame-svg { animation: none !important; }
+  .flame-root .flame-ring, .flame-root .flame-spark { display: none !important; }
+  .flame-on .flame-glow, .flame-igniting .flame-glow { opacity: 0.3; }
+  .flame-igniting .flame-color { animation: flame-color-in 200ms linear both !important; }
+  .flame-igniting .flame-grey { animation: flame-grey-out 200ms linear both !important; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

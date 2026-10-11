@@ -33,7 +33,7 @@ export function WeekList({ weeks, unit }: { weeks: WeekMetrics[]; unit: WeightUn
               <span className={cn("tabular text-lg font-semibold leading-tight", tone === "green" ? "text-green" : tone === "orange" ? "text-orange" : "text-ink")}>
                 {w.adherence}%
               </span>
-              {w.isCurrent && <span className="text-[10px] font-medium uppercase tracking-wider text-accent">En curso</span>}
+              {w.isCurrent && <span className="text-[11px] font-medium text-accent-ink">En curso</span>}
             </div>
             <div className="min-w-0 flex-1">
               <p className="text-sm font-medium text-ink">

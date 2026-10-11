@@ -89,7 +89,14 @@ export const profileSchema = z.object({
   name: z.string().trim().min(1, "Escribe un nombre").max(24, "Máximo 24 caracteres"),
   color,
   avatarEmoji: z.string().max(8).optional().nullable(),
-  avatarUrl: z.string().url("URL no válida").max(500).optional().nullable().or(z.literal("")),
+  avatarUrl: z
+    .string()
+    .url("URL no válida")
+    .max(500)
+    .refine((u) => /^https:\/\//i.test(u), "La imagen debe ser una URL https")
+    .optional()
+    .nullable()
+    .or(z.literal("")),
   pin: pinSchema.optional().nullable().or(z.literal("")),
   timezone: z.string().max(64).optional(),
 });

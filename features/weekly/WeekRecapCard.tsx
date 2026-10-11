@@ -46,7 +46,7 @@ export function WeekRecapCard({
         </span>
         <span className="min-w-0 flex-1">
           {open ? (
-            <span className="block text-[11px] font-semibold uppercase tracking-[0.08em] text-ink-3">Semana completada</span>
+            <span className="block text-[12px] font-medium text-ink-3">Semana completada</span>
           ) : (
             <span className="block text-[13px] text-ink-2">
               Semana anterior · <span className="tabular font-semibold text-ink">{week.adherence}%</span> {allMet && "✓"}
@@ -93,7 +93,7 @@ export function WeekRecapCard({
 
           {comparisons.length > 0 && (
             <div className="mt-4 border-t border-line pt-3">
-              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-ink-3">Vs. semana anterior</p>
+              <p className="mb-2 text-[12px] font-medium text-ink-3">Vs. semana anterior</p>
               <div className="flex flex-wrap gap-1.5">
                 {comparisons.map((c) => (
                   <MetricChip key={c.key} label={c.label} value={c.value} tone={c.tone} />

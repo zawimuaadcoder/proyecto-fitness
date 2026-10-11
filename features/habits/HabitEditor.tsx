@@ -123,7 +123,7 @@ function HabitForm({ habit, onDone, workoutDays }: { habit: Habit | null; onDone
         </Field>
       )}
 
-      <div className="flex flex-col divide-y divide-line rounded-[10px] border border-line">
+      <div className="flex flex-col divide-y divide-line rounded-[10px] bg-inset shadow-hairline">
         <label className="flex items-center justify-between gap-3 px-3.5 py-3">
           <span>
             <span className="block text-sm">Obligatorio</span>

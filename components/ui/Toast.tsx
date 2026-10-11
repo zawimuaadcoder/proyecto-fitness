@@ -73,7 +73,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             {t.action && (
               <button
                 type="button"
-                className="ml-1 rounded-md px-1.5 py-0.5 text-accent hover:bg-accent-tint"
+                className="ml-1 rounded-full px-2 py-0.5 text-accent hover:bg-accent-tint"
                 onClick={() => {
                   t.action?.onClick();
                   dismiss(t.id);

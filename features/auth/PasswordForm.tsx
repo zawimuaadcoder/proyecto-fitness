@@ -8,10 +8,11 @@ import { APP_NAME } from "@/lib/constants";
 import { cn } from "@/lib/cn";
 import { setupPassword, submitPassword } from "./actions";
 
-export function PasswordForm({ mode }: { mode: "login" | "setup" }) {
+export function PasswordForm({ mode, needsToken = false }: { mode: "login" | "setup"; needsToken?: boolean }) {
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
+  const [token, setToken] = useState("");
   const [show, setShow] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [shake, setShake] = useState(0);
@@ -25,7 +26,7 @@ export function PasswordForm({ mode }: { mode: "login" | "setup" }) {
       return;
     }
     startTransition(async () => {
-      const res = mode === "setup" ? await setupPassword(password) : await submitPassword(password);
+      const res = mode === "setup" ? await setupPassword(password, token) : await submitPassword(password);
       if (res.ok) {
         router.replace("/perfiles");
         router.refresh();
@@ -75,11 +76,22 @@ export function PasswordForm({ mode }: { mode: "login" | "setup" }) {
               aria-label={show ? "Ocultar contraseña" : "Mostrar contraseña"}
               aria-pressed={show}
               onClick={() => setShow((s) => !s)}
-              className="absolute right-2 top-1/2 flex size-9 -translate-y-1/2 items-center justify-center rounded-lg text-ink-3 hover:text-ink"
+              className="absolute right-2 top-1/2 flex size-9 -translate-y-1/2 items-center justify-center rounded-full text-ink-3 hover:text-ink"
             >
               {show ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
             </button>
           </div>
+          {mode === "setup" && needsToken && (
+            <input
+              type="password"
+              autoComplete="off"
+              aria-label="Código de configuración (SETUP_TOKEN)"
+              placeholder="Código de configuración"
+              value={token}
+              onChange={(e) => setToken(e.target.value)}
+              className={input}
+            />
+          )}
           {mode === "setup" && (
             <input
               type={show ? "text" : "password"}

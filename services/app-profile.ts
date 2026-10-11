@@ -5,6 +5,18 @@ import type { AppProfile } from "@/features/app/ProfileContext";
 import type { ProfileAnalysis } from "./analysis";
 import type { PublicProfile } from "@/types/db";
 
+/** ¿Hay algún registro hoy? */
+export function isActiveToday(s: ProfileAnalysis["snapshot"]): boolean {
+  const t = s.today;
+  return (
+    s.weights.some((r) => r.date === t) ||
+    s.workouts.some((r) => r.date === t) ||
+    s.cardio.some((r) => r.date === t) ||
+    s.notes.some((r) => r.date === t) ||
+    s.habitLogs.some((r) => r.date === t && r.status !== "skipped")
+  );
+}
+
 /** Datos mínimos que necesita el cliente en todas las pantallas. */
 export function buildAppProfile(analysis: ProfileAnalysis, profiles: PublicProfile[]): AppProfile {
   const s = analysis.snapshot;
@@ -26,6 +38,7 @@ export function buildAppProfile(analysis: ProfileAnalysis, profiles: PublicProfi
     workoutTypes: unique([...DEFAULT_WORKOUT_TYPES, ...custom.filter((t) => t.category === "workout").map((t) => t.name), ...workoutUsed]),
     cardioTypes: unique([...DEFAULT_CARDIO_TYPES, ...custom.filter((t) => t.category === "cardio").map((t) => t.name), ...cardioUsed]),
     customTypes: custom.map((t) => ({ id: t.id, category: t.category, name: t.name })),
+    activeToday: isActiveToday(s),
     habits: analysis.snapshot.habits
       .filter((h) => h.active)
       .map((h) => {

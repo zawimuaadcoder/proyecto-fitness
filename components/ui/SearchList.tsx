@@ -127,7 +127,7 @@ export function SearchList<T>({
               setQuery("");
               inputRef.current?.focus();
             }}
-            className="animate-pop-in absolute right-2 top-1/2 flex size-7 -translate-y-1/2 items-center justify-center rounded-md text-ink-3 hover:bg-hover hover:text-ink"
+            className="animate-pop-in absolute right-2 top-1/2 flex size-7 -translate-y-1/2 items-center justify-center rounded-full text-ink-3 hover:bg-hover hover:text-ink"
           >
             <X className="size-3.5" />
           </button>

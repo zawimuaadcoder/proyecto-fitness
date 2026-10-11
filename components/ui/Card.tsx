@@ -60,7 +60,7 @@ export function Divider({ className }: { className?: string }) {
 export function SectionTitle({ children, action }: { children: ReactNode; action?: ReactNode }) {
   return (
     <div className="mb-2 mt-6 flex items-center justify-between px-1 first:mt-0">
-      <h2 className="text-[11px] font-semibold uppercase tracking-[0.08em] text-ink-3">{children}</h2>
+      <h2 className="text-[12px] font-medium text-ink-3">{children}</h2>
       {action}
     </div>
   );

@@ -113,7 +113,7 @@ export function DataTable<T>({
                 {columns
                   .filter((c) => c.optional)
                   .map((c) => (
-                    <label key={c.key} className="flex h-8 cursor-pointer items-center gap-2 rounded-lg px-2 text-[13px] text-ink-2 hover:bg-hover">
+                    <label key={c.key} className="flex h-8 cursor-pointer items-center gap-2 rounded-[8px] px-2 text-[13px] text-ink-2 hover:bg-hover">
                       <input
                         type="checkbox"
                         className="accent-[var(--accent)]"

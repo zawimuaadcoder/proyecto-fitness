@@ -53,11 +53,11 @@ export default async function WeekPage({ params }: { params: Promise<{ week: str
         title={`Semana ${isoWeekNumber(start)}`}
         action={
           <div className="flex gap-1">
-            <Link aria-label="Semana anterior" href={`/progreso/semanas/${addDays(start, -7)}`} className="flex size-9 items-center justify-center rounded-lg text-ink-2 shadow-btn hover:bg-hover">
+            <Link aria-label="Semana anterior" href={`/progreso/semanas/${addDays(start, -7)}`} className="flex size-9 items-center justify-center rounded-full text-ink-2 shadow-btn hover:bg-hover">
               <ChevronLeft className="size-4" />
             </Link>
             {next <= startOfWeek(a.ctx.today) && (
-              <Link aria-label="Semana siguiente" href={`/progreso/semanas/${next}`} className="flex size-9 items-center justify-center rounded-lg text-ink-2 shadow-btn hover:bg-hover">
+              <Link aria-label="Semana siguiente" href={`/progreso/semanas/${next}`} className="flex size-9 items-center justify-center rounded-full text-ink-2 shadow-btn hover:bg-hover">
                 <ChevronRight className="size-4" />
               </Link>
             )}

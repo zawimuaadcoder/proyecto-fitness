@@ -1,8 +1,9 @@
 "use client";
 
-import { Check, Flame, MoonStar, X } from "lucide-react";
+import { Check, MoonStar, X } from "lucide-react";
 import Link from "next/link";
 import { Card } from "@/components/ui/Card";
+import { Flame } from "@/components/ui/Flame";
 import { ProgressBar } from "@/components/ui/Progress";
 import { cn } from "@/lib/cn";
 import { isoWeekday, weekdayLetter, weekdayLong } from "@/lib/dates";
@@ -70,11 +71,7 @@ export function StreakCard({
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="flex items-center gap-1.5 text-[13px] font-medium text-ink-2">
-            <Flame
-              className={cn("size-4", streak.current > 0 ? "text-orange" : "text-ink-3", hot && "animate-flame", milestone && "size-5")}
-              fill={streak.current > 0 ? "currentColor" : "none"}
-              fillOpacity={0.25}
-            />
+            <Flame size={milestone ? 22 : 18} state={streak.current > 0 ? "on" : "off"} />
             Racha actual
           </p>
           <p className="tabular mt-2 flex items-baseline gap-1.5 leading-none">

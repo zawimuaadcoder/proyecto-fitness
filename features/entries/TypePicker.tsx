@@ -79,7 +79,7 @@ export function TypePicker({
             className="w-28 bg-transparent text-[13px] outline-none"
             placeholder="Nuevo tipo"
           />
-          <button type="button" aria-label="Añadir tipo" onClick={() => void create()} className="flex size-7 items-center justify-center rounded-md text-ink-2 hover:bg-hover">
+          <button type="button" aria-label="Añadir tipo" onClick={() => void create()} className="flex size-7 items-center justify-center rounded-full text-ink-2 hover:bg-hover">
             <Check className="size-3.5" />
           </button>
         </span>

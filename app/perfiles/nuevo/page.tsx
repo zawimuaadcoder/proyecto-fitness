@@ -9,7 +9,7 @@ export default async function NewProfilePage() {
   await requireAccess();
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-5 py-[max(24px,env(safe-area-inset-top))]">
-      <Link href="/perfiles" className="mb-6 inline-flex h-9 w-fit items-center gap-1 rounded-lg pr-3 text-sm text-ink-3 hover:text-ink">
+      <Link href="/perfiles" className="mb-6 inline-flex h-9 w-fit items-center gap-1 rounded-full pl-2 pr-3 hover:bg-hover text-sm text-ink-3 hover:text-ink">
         <ChevronLeft className="size-4" /> Perfiles
       </Link>
       <h1 className="animate-fade-up text-2xl font-semibold tracking-tight">Nuevo perfil</h1>

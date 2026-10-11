@@ -1,4 +1,5 @@
 import "server-only";
+import { UserFacingError } from "@/lib/server/action";
 import { db, unwrap } from "@/lib/server/supabase";
 import type { HabitKind, HabitLogStatus } from "@/types/db";
 
@@ -119,7 +120,7 @@ export async function upsertHabitLog(profileId: string, input: HabitLogInput) {
   const habit = unwrap(
     await db().from("habits").select("id").eq("id", input.habitId).eq("profile_id", profileId).maybeSingle(),
   );
-  if (!habit) throw new Error("Hábito no encontrado");
+  if (!habit) throw new UserFacingError("Hábito no encontrado");
 
   if (input.status === "clear") {
     unwrap(

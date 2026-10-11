@@ -14,6 +14,9 @@ const PROFILE_TTL_DAYS = 30;
 
 function sessionSecret(): string {
   const { sessionSecret, supabaseSecret } = getServerEnv();
+  if (process.env.NODE_ENV === "production" && (!sessionSecret || sessionSecret.length < 32)) {
+    throw new Error("SESSION_SECRET es obligatorio en producción");
+  }
   // Si no hay SESSION_SECRET dedicado, derivamos uno del secreto de Supabase.
   return sessionSecret || fingerprint(`session:${supabaseSecret}`) + supabaseSecret.slice(-8);
 }

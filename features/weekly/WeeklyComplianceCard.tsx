@@ -22,7 +22,7 @@ export function WeeklyComplianceCard({ week }: { week: WeekMetrics }) {
         title="Cumplimiento semanal"
         subtitle={week.isCurrent ? `Día ${week.elapsedDays} de 7` : undefined}
         action={
-          <Link href="/cumplimiento" aria-label="Ver cumplimiento semanal" className="flex size-8 items-center justify-center rounded-lg text-ink-3 hover:bg-hover hover:text-ink">
+          <Link href="/cumplimiento" aria-label="Ver cumplimiento semanal" className="flex size-7 items-center justify-center rounded-[8px] text-ink-3 hover:bg-hover hover:text-ink">
             <ChevronRight className="size-4" />
           </Link>
         }

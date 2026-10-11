@@ -26,6 +26,8 @@ export interface AppProfile {
   cardioTypes: string[];
   customTypes: { id: string; category: "workout" | "cardio"; name: string }[];
   habits: QuickHabit[];
+  /** Hay algún registro hoy (peso, entreno, cardio, nota o hábito no omitido). */
+  activeToday: boolean;
   lastWeight: number | null;
   lastWorkoutType: string | null;
   lastCardioType: string | null;

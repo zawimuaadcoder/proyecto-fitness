@@ -2,9 +2,9 @@
 
 import { z } from "zod";
 import { isValidTimeZone, startOfWeek, todayInTimeZone } from "@/lib/dates";
-import { profileAction } from "@/lib/server/action";
+import { profileAction, UserFacingError } from "@/lib/server/action";
 import { db } from "@/lib/server/supabase";
-import { goalsSchema, settingsSchema } from "@/lib/validation";
+import { goalsSchema, isoDate, settingsSchema } from "@/lib/validation";
 import { upsertGoals } from "@/services/goals";
 import { createHabit, syncWorkoutHabitDays } from "@/services/habits";
 import { getSettings, updateSettings } from "@/services/profiles";
@@ -18,7 +18,7 @@ export async function saveGoals(input: unknown) {
 
 export async function saveSettings(input: unknown) {
   return profileAction(settingsSchema, input, async (pid, v) => {
-    if (v.timezone && !isValidTimeZone(v.timezone)) throw new Error("Zona horaria no válida");
+    if (v.timezone && !isValidTimeZone(v.timezone)) throw new UserFacingError("Zona horaria no válida");
     await updateSettings(pid, v);
     if (v.workout_days) await syncWorkoutHabitDays(pid, v.workout_days);
   });
@@ -38,8 +38,8 @@ const onboardingSchema = z.object({
         name: z.string().trim().min(1).max(40),
         icon: z.string().max(30),
         kind: z.enum(["check", "quantity", "weight", "workout", "cardio"]),
-        weekdays: z.array(z.number().int().min(1).max(7)),
-        targetValue: z.number().min(0).nullable().optional(),
+        weekdays: z.array(z.number().int().min(1).max(7)).max(7),
+        targetValue: z.number().min(0).max(100000).nullable().optional(),
         unit: z.string().max(12).nullable().optional(),
         required: z.boolean(),
       }),
@@ -84,7 +84,7 @@ export async function completeOnboarding(input: unknown) {
 
 export async function markCelebrationSeen(input: unknown) {
   return profileAction(
-    z.object({ date: z.string(), kind: z.enum(["milestone", "record", "perfect_day", "perfect_week"]), value: z.number().int() }),
+    z.object({ date: isoDate, kind: z.enum(["milestone", "record", "perfect_day", "perfect_week"]), value: z.number().int().min(0).max(1000) }),
     input,
     async (pid, v) => {
       await db()

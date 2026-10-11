@@ -3,10 +3,12 @@ import { addDays, formatLongDate, hourInTimeZone, isoWeekday, startOfWeek } from
 import { comparePeriods } from "@/lib/domain/compare";
 import { requireProfileId } from "@/lib/server/session";
 import { analyzeProfile } from "@/services/analysis";
+import { isActiveToday } from "@/services/app-profile";
 import { CardioCard } from "@/features/cardio/CardioCard";
 import { TodayHabitsCard } from "@/features/habits/TodayHabitsCard";
 import { InsightCarousel } from "@/features/insights/InsightCarousel";
 import type { CelebrationData } from "@/features/streak/Celebration";
+import { StreakBadge } from "@/features/streak/StreakBadge";
 import { StreakCard } from "@/features/streak/StreakCard";
 import { WeekRecapCard } from "@/features/weekly/WeekRecapCard";
 import { WeeklyComplianceCard } from "@/features/weekly/WeeklyComplianceCard";
@@ -71,11 +73,14 @@ export default async function TodayPage() {
 
   return (
     <Page wide>
-      <header className="animate-fade-up mb-5 md:mb-6">
-        <p className="text-xs font-medium text-ink-3 first-letter:uppercase">{formatLongDate(s.today)}</p>
-        <h1 className="mt-0.5 text-[22px] font-semibold tracking-tight md:text-2xl">
-          {greeting(hourInTimeZone(s.settings.timezone))}, {s.profile.name}
-        </h1>
+      <header className="animate-fade-up mb-5 flex items-start justify-between gap-3 md:mb-6">
+        <div className="min-w-0">
+          <p className="text-xs font-medium text-ink-3 first-letter:uppercase">{formatLongDate(s.today)}</p>
+          <h1 className="mt-0.5 text-[22px] font-semibold tracking-tight md:text-2xl">
+            {greeting(hourInTimeZone(s.settings.timezone))}, {s.profile.name}
+          </h1>
+        </div>
+        <StreakBadge streak={streak.current} activeToday={isActiveToday(s)} profileId={id} today={s.today} />
       </header>
 
       {/* Móvil: una columna en el orden del producto. Desktop: 2 columnas. */}

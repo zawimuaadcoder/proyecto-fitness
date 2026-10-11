@@ -11,6 +11,7 @@ export default async function ProfilesPage({ searchParams }: { searchParams: Pro
   if (!setup.ok) return <SetupScreen status={setup} />;
   await requireAccess();
   const [profiles, params] = await Promise.all([listProfiles(), searchParams]);
-  const demoAvailable = !profiles.some((p) => ["Alex", "Marta", "Leo"].includes(p.name));
+  const demoDisabled = process.env.NODE_ENV === "production" && process.env.ENABLE_DEMO !== "true";
+  const demoAvailable = !demoDisabled && !profiles.some((p) => ["Alex", "Marta", "Leo"].includes(p.name));
   return <ProfileGrid profiles={profiles} autoOpen={params.abrir ?? null} demoAvailable={demoAvailable} />;
 }

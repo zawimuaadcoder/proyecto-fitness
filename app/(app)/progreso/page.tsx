@@ -9,9 +9,11 @@ import { addDays, isoWeekNumber } from "@/lib/dates";
 import { comparePeriods } from "@/lib/domain/compare";
 import { rangeStats } from "@/lib/domain/stats";
 import { requireProfileId } from "@/lib/server/session";
+import { recentDays } from "@/lib/domain/streak";
 import { allWeeks, analyzeProfile } from "@/services/analysis";
 import { buildHabitDays, buildWeightHistory } from "@/services/history";
 import { HistoryTables } from "@/features/history/HistoryTables";
+import { StreakHeatmap } from "@/features/streak/StreakHeatmap";
 import { WeekList } from "@/features/weekly/WeekList";
 import { WeightChartCard } from "@/features/weight/WeightChartCard";
 import type { WeekMetrics } from "@/types/domain";
@@ -114,6 +116,10 @@ function Summary({ a }: { a: NonNullable<Awaited<ReturnType<typeof analyzeProfil
           target={90}
           ariaLabel="Cumplimiento semanal de las últimas 8 semanas"
         />
+      </Card>
+      <Card className="lg:col-span-2">
+        <CardHeader icon={<CalendarRange />} title="Constancia · últimas 16 semanas" />
+        <StreakHeatmap days={recentDays(a.timeline, s.today, 112)} />
       </Card>
       <Card>
         <CardHeader icon={<GitCompareArrows />} title="Semana pasada vs anterior" />

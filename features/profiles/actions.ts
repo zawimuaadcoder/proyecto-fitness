@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect, unstable_rethrow } from "next/navigation";
 import { isValidTimeZone } from "@/lib/dates";
-import { profileAction } from "@/lib/server/action";
+import { profileAction, UserFacingError } from "@/lib/server/action";
 import { clearProfileSession, requireAccess, selectProfileSession } from "@/lib/server/session";
 import { profileSchema, profileUpdateSchema } from "@/lib/validation";
 import { seedDemoProfiles } from "@/services/demo";
@@ -58,7 +58,7 @@ export async function deleteProfileAction(confirmName: string): Promise<ActionRe
   const result = await profileAction(profileUpdateSchema.pick({ name: true }), { name: confirmName }, async (profileId, v) => {
     const row = await getProfileRow(profileId);
     if (!row || row.name.trim().toLowerCase() !== (v.name ?? "").trim().toLowerCase()) {
-      throw new Error("El nombre no coincide.");
+      throw new UserFacingError("El nombre no coincide.");
     }
     await deleteProfile(profileId);
     await clearProfileSession();
@@ -70,6 +70,9 @@ export async function deleteProfileAction(confirmName: string): Promise<ActionRe
 export async function seedDemoAction(timezone: string): Promise<ActionResult> {
   try {
     await requireAccess();
+    if (process.env.NODE_ENV === "production" && process.env.ENABLE_DEMO !== "true") {
+      return { ok: false, error: "Los datos demo están desactivados en producción." };
+    }
     const existing = await listProfiles();
     if (existing.some((p) => ["Alex", "Marta", "Leo"].includes(p.name))) {
       return { ok: false, error: "Los perfiles demo ya existen." };

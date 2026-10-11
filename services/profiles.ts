@@ -1,6 +1,7 @@
 import "server-only";
 import { hashSecret, isHashed, safeEqual, verifySecret } from "@/lib/server/crypto";
 import { db, unwrap } from "@/lib/server/supabase";
+import { lockMessage, PIN_THROTTLE, registerAttempt, resetAttempts } from "@/lib/server/throttle";
 import type { ProfileRow, ProfileSettingsRow, PublicProfile } from "@/types/db";
 
 const PUBLIC_COLUMNS = "id, name, color, avatar_url, avatar_emoji, pin_hash";
@@ -77,10 +78,6 @@ export async function updateProfile(
   if (input.avatarEmoji !== undefined) patch.avatar_emoji = input.avatarEmoji || null;
   if (input.removePin) patch.pin_hash = null;
   else if (input.pin) patch.pin_hash = await hashSecret(input.pin);
-  if (input.pin || input.removePin) {
-    patch.pin_failed_attempts = 0;
-    patch.pin_locked_until = null;
-  }
   unwrap(await db().from("profiles").update(patch).eq("id", id).select("id").single());
 }
 
@@ -88,24 +85,22 @@ export async function deleteProfile(id: string) {
   unwrap(await db().from("profiles").delete().eq("id", id));
 }
 
-const MAX_ATTEMPTS = 5;
-const LOCK_MINUTES = 5;
-
 export type PinResult = { ok: true; pinHash: string | null } | { ok: false; error: string };
 
 /**
- * Verifica el PIN con bloqueo temporal tras varios fallos. Si el perfil viene
- * del prototipo anterior con el PIN en texto plano, se migra a hash al acertar.
+ * Verifica el PIN. El intento se registra de forma atómica ANTES de comprobar
+ * el hash (lib/server/throttle.ts), así que ni siquiera cientos de peticiones
+ * en paralelo superan PIN_THROTTLE.max intentos por ventana de bloqueo.
+ * Si el perfil viene del prototipo con el PIN en texto plano, se migra a hash.
  */
 export async function verifyProfilePin(id: string, pin: string | null): Promise<PinResult> {
   const row = await getProfileRow(id);
   if (!row) return { ok: false, error: "El perfil no existe." };
   if (!row.pin_hash) return { ok: true, pinHash: null };
 
-  if (row.pin_locked_until && new Date(row.pin_locked_until) > new Date()) {
-    const mins = Math.ceil((new Date(row.pin_locked_until).getTime() - Date.now()) / 60_000);
-    return { ok: false, error: `Demasiados intentos. Prueba en ${mins} min.` };
-  }
+  const key = `pin:${id}`;
+  const remaining = await registerAttempt(key, PIN_THROTTLE);
+  if (remaining < 0) return { ok: false, error: lockMessage(PIN_THROTTLE) };
 
   let valid = false;
   let pinHash = row.pin_hash;
@@ -118,27 +113,17 @@ export async function verifyProfilePin(id: string, pin: string | null): Promise<
   }
 
   if (valid) {
-    await db()
-      .from("profiles")
-      .update({ pin_failed_attempts: 0, pin_locked_until: null, pin_hash: pinHash })
-      .eq("id", id);
+    await resetAttempts(key);
+    if (pinHash !== row.pin_hash) await db().from("profiles").update({ pin_hash: pinHash }).eq("id", id);
     return { ok: true, pinHash };
   }
 
-  const attempts = (row.pin_failed_attempts ?? 0) + 1;
-  const locked = attempts >= MAX_ATTEMPTS;
-  await db()
-    .from("profiles")
-    .update({
-      pin_failed_attempts: locked ? 0 : attempts,
-      pin_locked_until: locked ? new Date(Date.now() + LOCK_MINUTES * 60_000).toISOString() : null,
-    })
-    .eq("id", id);
   return {
     ok: false,
-    error: locked
-      ? `PIN incorrecto. Perfil bloqueado ${LOCK_MINUTES} min.`
-      : `PIN incorrecto. Quedan ${MAX_ATTEMPTS - attempts} intentos.`,
+    error:
+      remaining === 0
+        ? `PIN incorrecto. Perfil bloqueado ${Math.ceil(PIN_THROTTLE.lockSeconds / 60)} min.`
+        : `PIN incorrecto. Quedan ${remaining} ${remaining === 1 ? "intento" : "intentos"}.`,
   };
 }
 

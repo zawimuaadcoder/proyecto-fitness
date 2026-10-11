@@ -11,5 +11,5 @@ export default async function AccessPage() {
   if (!setup.ok) return <SetupScreen status={setup} />;
   if (await hasAccess()) redirect("/perfiles");
   const configured = Boolean(await getGroupPasswordHash());
-  return <PasswordForm mode={configured ? "login" : "setup"} />;
+  return <PasswordForm mode={configured ? "login" : "setup"} needsToken={!configured && Boolean(process.env.SETUP_TOKEN)} />;
 }

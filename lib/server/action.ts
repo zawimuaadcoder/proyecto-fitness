@@ -5,9 +5,12 @@ import type { z } from "zod";
 import type { ActionResult } from "@/types/domain";
 import { requireProfileId } from "./session";
 
+/** Error con mensaje seguro para mostrar al usuario. */
+export class UserFacingError extends Error {}
+
 function message(error: unknown): string {
-  if (error instanceof Error) return error.message;
-  return "Error inesperado";
+  if (error instanceof UserFacingError) return error.message;
+  return "No se pudo completar la acción";
 }
 
 /**

@@ -14,12 +14,12 @@ export default function Loading() {
       <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-4">
         <div className="flex flex-col gap-3 lg:gap-4">
           {[148, 240, 132].map((h, i) => (
-            <div key={i} className="animate-pulse rounded-[14px] border border-line bg-surface" style={{ height: h, animationDelay: `${i * 120}ms` }} />
+            <div key={i} className="animate-pulse rounded-[10px] bg-surface shadow-card" style={{ height: h, animationDelay: `${i * 120}ms` }} />
           ))}
         </div>
         <div className="hidden flex-col gap-4 lg:flex">
           {[150, 170].map((h, i) => (
-            <div key={i} className="animate-pulse rounded-[14px] border border-line bg-surface" style={{ height: h }} />
+            <div key={i} className="animate-pulse rounded-[10px] bg-surface shadow-card" style={{ height: h }} />
           ))}
         </div>
       </div>

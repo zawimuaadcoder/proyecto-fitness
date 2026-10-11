@@ -5,7 +5,7 @@ import { forwardRef, useId, useState, type ComponentPropsWithoutRef, type ReactN
 import { cn } from "@/lib/cn";
 
 const fieldBase =
-  "w-full rounded-[10px] border border-line bg-field px-3 text-ink placeholder:text-ink-3 outline-none transition-[border-color,box-shadow] duration-150 focus:border-line-strong focus:ring-2 focus:ring-accent-tint disabled:opacity-60";
+  "w-full rounded-[8px] bg-field px-3 text-ink shadow-hairline placeholder:text-ink-3 outline-none transition-shadow duration-150 focus:shadow-[0_0_0_1px_var(--accent),0_0_0_4px_var(--accent-tint)] disabled:opacity-60";
 
 export function Field({
   label,
@@ -103,7 +103,7 @@ export function NumberStepper({
     if (text === "" ? value != null : parsed !== value) setText(value == null ? "" : String(value).replace(".", ","));
   }
   return (
-    <div className={cn("flex h-11 items-center rounded-[10px] border border-line bg-field md:h-10", className)}>
+    <div className={cn("flex h-11 items-center rounded-[8px] bg-field shadow-hairline focus-within:shadow-[0_0_0_1px_var(--accent),0_0_0_4px_var(--accent-tint)] md:h-10", className)}>
       <button
         type="button"
         aria-label={`Restar ${label}`}
@@ -164,14 +164,14 @@ export function Switch({
       disabled={disabled}
       onClick={() => onChange(!checked)}
       className={cn(
-        "relative inline-flex h-6 w-10 shrink-0 items-center rounded-full border transition-colors duration-200 disabled:opacity-50",
-        checked ? "border-transparent bg-accent" : "border-line-strong bg-field",
+        "relative inline-flex h-6 w-10 shrink-0 items-center rounded-full transition-colors duration-200 disabled:opacity-50",
+        checked ? "bg-ink" : "bg-line-strong",
       )}
     >
       <span
         className={cn(
-          "absolute left-0.5 size-[18px] rounded-full bg-white shadow-soft transition-transform duration-200 ease-[var(--ease-out)]",
-          checked && "translate-x-4",
+          "absolute left-0.5 size-5 rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.2)] transition-transform duration-200 ease-[var(--ease-out)]",
+          checked ? "translate-x-4 bg-canvas" : "bg-white",
         )}
       />
     </button>
@@ -203,8 +203,8 @@ export function WeekdayPicker({
             aria-label={names[i]}
             onClick={() => onChange(on ? value.filter((d) => d !== day) : [...value, day].sort())}
             className={cn(
-              "flex size-10 flex-1 items-center justify-center rounded-[10px] border text-[13px] font-medium transition-colors duration-150 md:size-9",
-              on ? "border-transparent bg-ink text-canvas" : "border-line bg-field text-ink-3 hover:text-ink",
+              "flex size-10 flex-1 items-center justify-center rounded-full text-[13px] font-medium transition-[background-color,color,transform] duration-150 active:scale-95 md:size-9",
+              on ? "bg-ink text-canvas" : "bg-field text-ink-3 shadow-hairline hover:text-ink",
             )}
           >
             {l}

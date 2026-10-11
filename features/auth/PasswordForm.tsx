@@ -37,7 +37,7 @@ export function PasswordForm({ mode }: { mode: "login" | "setup" }) {
   }
 
   const input =
-    "h-12 w-full rounded-xl border border-line bg-field px-4 text-[15px] text-ink outline-none placeholder:text-ink-3 focus:border-line-strong focus:ring-2 focus:ring-accent-tint";
+    "h-12 w-full rounded-[10px] bg-field shadow-hairline px-4 text-[15px] text-ink outline-none placeholder:text-ink-3 focus:shadow-[0_0_0_1px_var(--accent),0_0_0_4px_var(--accent-tint)]";
 
   return (
     <main className="relative flex min-h-dvh items-center justify-center overflow-hidden px-5">
@@ -48,7 +48,7 @@ export function PasswordForm({ mode }: { mode: "login" | "setup" }) {
       />
       <form onSubmit={onSubmit} className="animate-fade-up relative w-full max-w-[360px]">
         <div className="mb-8 flex flex-col items-center text-center">
-          <span className="mb-5 flex size-12 items-center justify-center rounded-2xl border border-line bg-surface shadow-card">
+          <span className="mb-5 flex size-12 items-center justify-center rounded-[14px] bg-surface shadow-card">
             <Flame className="animate-flame size-6 text-orange" />
           </span>
           <h1 className="text-xl font-semibold tracking-tight">{APP_NAME}</h1>

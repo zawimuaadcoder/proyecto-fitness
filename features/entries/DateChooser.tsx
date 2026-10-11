@@ -22,8 +22,8 @@ export function DateChooser({
       aria-pressed={value === d}
       onClick={() => onChange(d)}
       className={cn(
-        "h-11 rounded-[10px] border px-3 text-[13px] font-medium transition-colors md:h-10",
-        value === d ? "border-line-strong bg-surface text-ink shadow-card" : "border-line bg-field text-ink-3 hover:text-ink",
+        "h-11 rounded-full px-3.5 text-[13px] font-medium transition-colors md:h-10",
+        value === d ? "bg-surface text-ink shadow-card" : "bg-field shadow-hairline text-ink-3 hover:text-ink",
       )}
     >
       {label}
@@ -41,8 +41,8 @@ export function DateChooser({
         max={today}
         onChange={(e) => e.target.value && onChange(e.target.value)}
         className={cn(
-          "tabular h-11 min-w-0 flex-1 rounded-[10px] border bg-field px-3 text-[13px] outline-none md:h-10",
-          value !== today && value !== yesterday ? "border-line-strong text-ink" : "border-line text-ink-3",
+          "tabular h-11 min-w-0 flex-1 rounded-full bg-field px-3.5 text-[13px] shadow-hairline outline-none md:h-10",
+          value !== today && value !== yesterday ? "text-ink" : "text-ink-3",
         )}
       />
     </div>

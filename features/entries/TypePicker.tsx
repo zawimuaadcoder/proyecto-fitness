@@ -50,8 +50,8 @@ export function TypePicker({
           aria-checked={value === t}
           onClick={() => onChange(t)}
           className={cn(
-            "inline-flex h-9 items-center gap-1 rounded-[10px] border px-3 text-[13px] transition-colors duration-150",
-            value === t ? "border-transparent bg-ink font-medium text-canvas" : "border-line bg-field text-ink-2 hover:text-ink",
+            "inline-flex h-8 items-center gap-1 rounded-full px-3 text-[13px] transition-[background-color,color,transform] duration-150 active:scale-[0.96]",
+            value === t ? "bg-ink font-medium text-canvas" : "bg-field shadow-hairline text-ink-2 hover:text-ink",
           )}
         >
           {value === t && <Check className="size-3.5" strokeWidth={2.5} />}
@@ -59,7 +59,7 @@ export function TypePicker({
         </button>
       ))}
       {adding ? (
-        <span className="animate-pop-in inline-flex h-9 items-center gap-1 rounded-[10px] border border-line-strong bg-field pl-3 pr-1">
+        <span className="animate-pop-in inline-flex h-8 items-center gap-1 rounded-full bg-field shadow-hairline pl-3 pr-1">
           <input
             autoFocus
             aria-label="Nombre del nuevo tipo"
@@ -87,7 +87,7 @@ export function TypePicker({
         <button
           type="button"
           onClick={() => setAdding(true)}
-          className="inline-flex h-9 items-center gap-1 rounded-[10px] border border-dashed border-line-strong px-3 text-[13px] text-ink-3 hover:text-ink"
+          className="inline-flex h-8 items-center gap-1 rounded-full border border-dashed border-line-strong px-3 text-[13px] text-ink-3 hover:text-ink"
         >
           <Plus className="size-3.5" /> Nuevo
         </button>

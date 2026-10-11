@@ -109,7 +109,7 @@ export function DataTable<T>({
               Columnas
             </Button>
             {showCols && (
-              <div className="animate-pop-in absolute right-0 top-9 z-20 w-48 rounded-xl border border-line-strong bg-surface p-1.5 shadow-float">
+              <div className="animate-pop-in absolute right-0 top-9 z-20 w-48 rounded-[14px] bg-surface p-1.5 shadow-overlay">
                 {columns
                   .filter((c) => c.optional)
                   .map((c) => (
@@ -130,7 +130,7 @@ export function DataTable<T>({
       </div>
 
       {/* Desktop: tabla */}
-      <div className="hidden overflow-hidden rounded-xl border border-line md:block">
+      <div className="hidden overflow-hidden rounded-[10px] bg-surface shadow-card md:block">
         <table className="w-full text-[13px]">
           <thead className="bg-inset text-xs text-ink-3">
             <tr>
@@ -195,7 +195,7 @@ export function DataTable<T>({
       </div>
 
       {/* Móvil: filas compactas */}
-      <ul className="flex flex-col divide-y divide-line overflow-hidden rounded-xl border border-line bg-surface md:hidden">
+      <ul className="flex flex-col divide-y divide-line overflow-hidden rounded-[10px] bg-surface shadow-card md:hidden">
         {sorted.map((r) => {
           const k = getKey(r);
           const title = columns.find((c) => c.mobile === "title");

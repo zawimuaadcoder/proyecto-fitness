@@ -11,9 +11,9 @@ export function Card({ as: Tag = "section", padded = true, interactive, classNam
   return (
     <Tag
       className={cn(
-        "relative rounded-[14px] border border-line bg-surface shadow-soft",
+        "relative rounded-[10px] bg-surface shadow-card",
         padded && "p-4",
-        interactive && "transition-colors duration-200 hover:border-line-strong",
+        interactive && "transition-shadow duration-200 hover:shadow-raised",
         className,
       )}
       {...props}

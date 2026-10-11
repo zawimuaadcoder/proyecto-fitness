@@ -87,8 +87,8 @@ export function ChoiceButton({
       role="radio"
       aria-checked={selected}
       onClick={onClick}
-      className={`flex min-h-14 w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition-[border-color,background-color] duration-150 ${
-        selected ? "border-line-strong bg-surface shadow-card" : "border-line bg-field hover:bg-hover"
+      className={`flex min-h-14 w-full items-center gap-3 rounded-[10px] px-4 py-3 text-left transition-[box-shadow,background-color,transform] duration-150 active:scale-[0.99] ${
+        selected ? "bg-surface shadow-card" : "bg-field shadow-hairline hover:bg-hover"
       }`}
     >
       {icon && <span className="text-lg">{icon}</span>}
@@ -98,7 +98,7 @@ export function ChoiceButton({
       </span>
       <span
         aria-hidden
-        className={`flex size-5 items-center justify-center rounded-full border transition-colors ${selected ? "border-transparent bg-ink" : "border-line-strong"}`}
+        className={`flex size-5 items-center justify-center rounded-full border transition-colors ${selected ? "border-transparent bg-ink" : "border-ink-3"}`}
       >
         {selected && <span className="size-2 rounded-full bg-canvas" />}
       </span>

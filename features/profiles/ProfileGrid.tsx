@@ -99,7 +99,7 @@ export function ProfileGrid({ profiles, autoOpen, demoAvailable }: { profiles: P
                 >
                   <Avatar name={p.name} color={p.color} emoji={p.avatarEmoji} url={p.avatarUrl} size={104} rounded="xl" className="shadow-card" />
                   {p.hasPin && (
-                    <span className="absolute -bottom-1.5 -right-1.5 flex size-7 items-center justify-center rounded-full border border-line-strong bg-surface text-ink-2 shadow-soft">
+                    <span className="absolute -bottom-1.5 -right-1.5 flex size-7 items-center justify-center rounded-full bg-surface text-ink-2 shadow-raised">
                       <Lock className="size-3.5" />
                     </span>
                   )}
@@ -130,7 +130,7 @@ export function ProfileGrid({ profiles, autoOpen, demoAvailable }: { profiles: P
         )}
 
         {demoAvailable && profiles.length === 0 && (
-          <div className="animate-fade-up mt-12 flex max-w-sm flex-col items-center gap-3 rounded-2xl border border-line bg-surface p-5 text-center">
+          <div className="animate-fade-up mt-12 flex max-w-sm flex-col items-center gap-3 rounded-[14px] bg-surface shadow-card p-5 text-center">
             <Sparkles className="size-5 text-accent" />
             <p className="text-sm text-ink-2">¿Quieres ver la app con datos? Crea 3 perfiles de ejemplo (Alex con 6 semanas de historial, Marta con PIN 1234 y Leo vacío).</p>
             <Button variant="subtle" loading={seeding} onClick={seed}>

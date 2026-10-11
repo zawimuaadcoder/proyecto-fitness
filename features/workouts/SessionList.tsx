@@ -83,7 +83,7 @@ export function SessionList({
                 {kind === "workout" ? `${list.filter((e) => e.kind === "workout" && !e.row.is_rest).length} sesiones` : `${minutes} min`}
               </span>
             </h3>
-            <ul className="overflow-hidden rounded-xl border border-line bg-surface">
+            <ul className="overflow-hidden rounded-[10px] bg-surface shadow-card">
               {list.map((e) => {
                 const rest = e.kind === "workout" && e.row.is_rest;
                 return (

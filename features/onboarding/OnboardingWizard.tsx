@@ -102,7 +102,7 @@ export function OnboardingWizard({ name }: { name: string }) {
   if (done) {
     return (
       <div className="animate-pop-in flex flex-col items-center gap-4 py-16 text-center">
-        <span className="flex size-14 items-center justify-center rounded-2xl bg-green-tint text-green">
+        <span className="flex size-14 items-center justify-center rounded-[14px] bg-green-tint text-green">
           <svg viewBox="0 0 24 24" className="check-draw size-7" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
             <path d="M5 12.5l4.5 4.5L19 7.5" />
           </svg>
@@ -179,8 +179,8 @@ export function OnboardingWizard({ name }: { name: string }) {
                 aria-checked={days.length === n}
                 onClick={() => setDays(DEFAULT_DAYS[n])}
                 className={cn(
-                  "tabular h-14 rounded-xl border text-lg font-semibold transition-colors",
-                  days.length === n ? "border-line-strong bg-surface shadow-card" : "border-line bg-field text-ink-3 hover:text-ink",
+                  "tabular h-14 rounded-[10px] text-lg font-semibold transition-colors",
+                  days.length === n ? "bg-surface shadow-card" : "bg-field shadow-hairline text-ink-3 hover:text-ink",
                 )}
               >
                 {n}
@@ -231,7 +231,7 @@ export function OnboardingWizard({ name }: { name: string }) {
           nextLabel="Terminar"
           pending={pending}
         >
-          <ul className="flex flex-col divide-y divide-line rounded-xl border border-line bg-surface">
+          <ul className="flex flex-col divide-y divide-line rounded-[10px] bg-surface shadow-card">
             {habits.map((h, i) => (
               <li key={h.key} className="flex items-center gap-3 px-3.5 py-3">
                 <span className={cn("flex size-8 items-center justify-center rounded-lg", h.on ? "bg-accent-tint text-accent" : "bg-field text-ink-3")}>

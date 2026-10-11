@@ -89,8 +89,8 @@ export function ProfileForm({
             aria-checked={emoji === null}
             onClick={() => setEmoji(null)}
             className={cn(
-              "flex h-10 min-w-10 items-center justify-center rounded-[10px] border px-2 text-[13px] font-semibold",
-              emoji === null ? "border-line-strong bg-surface shadow-card" : "border-line bg-field text-ink-3",
+              "flex h-10 min-w-10 items-center justify-center rounded-[8px] px-2 text-[13px] font-semibold",
+              emoji === null ? "bg-surface shadow-card" : "bg-field shadow-hairline text-ink-3",
             )}
           >
             {(name.trim()[0] ?? "A").toUpperCase()}
@@ -104,8 +104,8 @@ export function ProfileForm({
               aria-label={`Avatar ${e}`}
               onClick={() => setEmoji(e)}
               className={cn(
-                "flex size-10 items-center justify-center rounded-[10px] border text-lg transition-colors",
-                emoji === e ? "border-line-strong bg-surface shadow-card" : "border-line bg-field hover:bg-hover",
+                "flex size-10 items-center justify-center rounded-[8px] text-lg transition-colors",
+                emoji === e ? "bg-surface shadow-card" : "bg-field shadow-hairline hover:bg-hover",
               )}
             >
               {e}
@@ -122,7 +122,7 @@ export function ProfileForm({
         />
       </Field>
 
-      <div className="rounded-xl border border-line bg-inset p-3.5">
+      <div className="rounded-[10px] bg-inset p-3.5 shadow-hairline">
         <div className="flex items-center justify-between gap-3">
           <div>
             <p className="text-sm font-medium">PIN de 4 dígitos</p>

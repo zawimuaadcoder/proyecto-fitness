@@ -5,8 +5,8 @@ import type { SetupStatus } from "@/services/setup";
 export function SetupScreen({ status }: { status: Exclude<SetupStatus, { ok: true }> }) {
   return (
     <main className="mx-auto flex min-h-dvh max-w-lg flex-col justify-center px-5 py-10">
-      <div className="animate-fade-up rounded-2xl border border-line bg-surface p-6 shadow-card">
-        <span className="mb-4 flex size-10 items-center justify-center rounded-xl bg-orange-tint text-orange">
+      <div className="animate-fade-up rounded-[14px] bg-surface p-6 shadow-card">
+        <span className="mb-4 flex size-10 items-center justify-center rounded-[10px] bg-orange-tint text-orange">
           {status.problem === "env" ? <KeyRound className="size-5" /> : status.problem === "schema" ? <Database className="size-5" /> : <PlugZap className="size-5" />}
         </span>
         {status.problem === "env" && (

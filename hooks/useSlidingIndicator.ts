@@ -29,8 +29,13 @@ export function useSlidingIndicator<T extends HTMLElement = HTMLElement>(
       setStyle((s) => ({ ...s, opacity: 0 }));
       return;
     }
-    const x = el.offsetLeft;
-    const y = el.offsetTop;
+    // Medido con rects (no offsetTop) para que funcione aunque haya
+    // contenedores posicionados intermedios.
+    const container = containerRef.current;
+    const c = container.getBoundingClientRect();
+    const r = el.getBoundingClientRect();
+    const x = r.left - c.left + container.scrollLeft - container.clientLeft;
+    const y = r.top - c.top + container.scrollTop - container.clientTop;
     setStyle({
       opacity: 1,
       width: axis === "y" ? undefined : el.offsetWidth,

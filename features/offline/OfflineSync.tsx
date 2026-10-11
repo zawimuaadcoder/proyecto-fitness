@@ -75,7 +75,7 @@ export function OfflineSync() {
   if (online && !syncing) return null;
 
   return (
-    <div className="animate-fade-up fixed left-1/2 top-[max(12px,env(safe-area-inset-top))] z-[65] -translate-x-1/2 rounded-full border border-line-strong bg-surface px-3.5 py-1.5 shadow-float">
+    <div className="animate-fade-up fixed left-1/2 top-[max(12px,env(safe-area-inset-top))] z-[65] -translate-x-1/2 rounded-full border border-line-strong bg-surface px-3.5 py-1.5 shadow-overlay">
       {syncing ? (
         <LoadingLabel label="Sincronizando" />
       ) : (

@@ -155,7 +155,7 @@ export function LineChart({
       {activePoint && active != null && (
         <div
           role="status"
-          className="animate-fade-in pointer-events-none absolute top-0 z-10 rounded-lg border border-line-strong bg-surface px-2.5 py-1.5 text-xs shadow-float"
+          className="animate-fade-in pointer-events-none absolute top-0 z-10 rounded-[8px] px-2.5 py-1.5 text-xs shadow-overlay [background:var(--tooltip-bg)] [color:var(--tooltip-fg)] [&_.text-ink-3]:[color:var(--tooltip-muted)] [&_.text-ink]:[color:var(--tooltip-fg)] [&_.text-ink-2]:[color:var(--tooltip-fg)]"
           style={{
             left: Math.min(Math.max(x(active) - 60, 0), Math.max(0, width - 120)),
             width: 120,

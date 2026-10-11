@@ -22,6 +22,7 @@ create extension if not exists pgcrypto;
 create or replace function public.set_updated_at()
 returns trigger
 language plpgsql
+set search_path = ''
 as $$
 begin
   new.updated_at = now();
@@ -50,6 +51,10 @@ create table if not exists public.profiles (
   pin_hash text,
   created_at timestamptz not null default now()
 );
+
+-- El prototipo permitía leer e insertar perfiles con la clave pública: se eliminan.
+drop policy if exists "Enable read access for all users" on public.profiles;
+drop policy if exists "Allow public insert profiles" on public.profiles;
 
 alter table public.profiles add column if not exists avatar_emoji text;
 alter table public.profiles add column if not exists pin_failed_attempts integer not null default 0;

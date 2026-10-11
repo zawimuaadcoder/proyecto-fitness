@@ -81,7 +81,7 @@ export function MiniBars({
               className="group relative flex h-full flex-1 flex-col items-center justify-end gap-1 outline-none"
             >
               {isActive && (
-                <span className="animate-pop-in tabular absolute -top-1 z-10 -translate-y-full whitespace-nowrap rounded-md border border-line-strong bg-surface px-1.5 py-0.5 text-[11px] font-medium text-ink shadow-float">
+                <span className="animate-pop-in tabular absolute -top-1 z-10 -translate-y-full whitespace-nowrap rounded-[6px] px-1.5 py-0.5 text-[11px] font-medium shadow-overlay [background:var(--tooltip-bg)] [color:var(--tooltip-fg)]">
                   {v} {unit}
                 </span>
               )}

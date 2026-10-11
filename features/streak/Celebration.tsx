@@ -69,7 +69,7 @@ export function Celebration({ data }: { data: CelebrationData }) {
           />
         ))}
       </span>
-      <span className="animate-pop-in mt-12 rounded-lg border border-orange/30 bg-orange-tint px-2.5 py-1 text-xs font-medium text-orange">
+      <span className="animate-pop-in mt-12 rounded-full bg-orange-tint shadow-[0_0_0_1px_color-mix(in_oklch,var(--orange)_28%,transparent)] px-2.5 py-1 text-xs font-medium text-orange">
         {COPY[data.kind](data.value)}
       </span>
     </div>

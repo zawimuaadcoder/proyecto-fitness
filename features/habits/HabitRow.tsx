@@ -109,7 +109,7 @@ export function HabitRow({ result, editable = true }: { result: HabitDayResult; 
     <li className="group">
       <div
         className={cn(
-          "flex min-h-14 items-center gap-3 rounded-xl px-2 py-2 transition-colors duration-150",
+          "flex min-h-14 items-center gap-3 rounded-[10px] px-2 py-2 transition-colors duration-150",
           open ? "bg-hover" : "hover:bg-hover",
         )}
       >

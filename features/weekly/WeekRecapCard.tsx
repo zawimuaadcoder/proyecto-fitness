@@ -34,7 +34,7 @@ export function WeekRecapCard({
   const missing = week.objectives.filter((o) => !o.met && o.missing);
 
   return (
-    <Card className={cn("overflow-hidden transition-[border-color] duration-300", open && defaultExpanded && "border-line-strong")} padded={false}>
+    <Card className={cn("overflow-hidden transition-shadow duration-300", open && defaultExpanded && "shadow-raised")} padded={false}>
       <button
         type="button"
         aria-expanded={open}

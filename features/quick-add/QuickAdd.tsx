@@ -102,7 +102,7 @@ export function QuickAddProvider({ children }: { children: ReactNode }) {
                 type="button"
                 onClick={() => setTarget({ kind: o.kind } as EditTarget)}
                 style={{ animationDelay: `${i * 30}ms` }}
-                className="animate-fade-up flex flex-col items-start gap-3 rounded-xl border border-line bg-field p-3.5 text-left transition-colors hover:border-line-strong hover:bg-hover [&_svg]:size-[18px]"
+                className="animate-fade-up flex flex-col items-start gap-3 rounded-[10px] bg-field shadow-hairline p-3.5 text-left transition-[background-color,transform] hover:bg-hover active:scale-[0.98] [&_svg]:size-[18px]"
               >
                 <span className="text-ink-2">{o.icon}</span>
                 <span>
@@ -161,7 +161,7 @@ function HabitQuickList({ onJump }: { onJump: (kind: "weight" | "workout" | "car
             });
             setSelected(null);
           }}
-          className="h-12 rounded-xl bg-ink text-[15px] font-medium text-canvas"
+          className="h-12 rounded-[10px] bg-ink text-[15px] font-medium text-canvas"
         >
           Guardar
         </button>
@@ -201,7 +201,7 @@ export function QuickAddFab() {
       type="button"
       aria-label="Registro rápido"
       onClick={() => open()}
-      className="flex size-12 items-center justify-center rounded-2xl bg-ink text-canvas shadow-float transition-transform active:scale-95"
+      className="flex size-12 items-center justify-center rounded-[14px] bg-ink text-canvas shadow-overlay transition-transform active:scale-95"
     >
       <Plus className="size-5" strokeWidth={2.4} />
     </button>

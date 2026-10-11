@@ -117,7 +117,7 @@ export function SearchList<T>({
           }}
           onKeyDown={onKeyDown}
           placeholder={placeholder}
-          className="h-11 w-full rounded-[10px] border border-line bg-field pl-9 pr-9 text-ink outline-none placeholder:text-ink-3 focus:border-line-strong focus:ring-2 focus:ring-accent-tint md:h-10 [&::-webkit-search-cancel-button]:hidden"
+          className="h-11 w-full rounded-full bg-field shadow-hairline pl-9 pr-9 text-ink outline-none placeholder:text-ink-3 focus:shadow-[0_0_0_1px_var(--accent),0_0_0_4px_var(--accent-tint)] md:h-10 [&::-webkit-search-cancel-button]:hidden"
         />
         {query && (
           <button

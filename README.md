@@ -92,3 +92,10 @@ tests/               Vitest
 Manifest + service worker (shell y páginas visitadas en caché). Los registros hechos sin conexión
 (peso, entreno, cardio, notas, hábitos) se guardan en una cola local y se sincronizan al volver la red.
 `localStorage` solo se usa para esa cola y preferencias (tema, último perfil, columnas visibles).
+
+## Créditos de diseño
+
+El lenguaje visual (tokens oklch, anillos de 1px, sombras en capas, botones y pills en píldora,
+sidebar 224↔52 px, `GlideMenu`, loader 3×3 «drive/dots/orbit») sigue
+[Beautiful UI](https://www.beautifului.dev) de Shane Levine — licencia MIT
+([repositorio](https://github.com/slev12397/beautiful-ui)).

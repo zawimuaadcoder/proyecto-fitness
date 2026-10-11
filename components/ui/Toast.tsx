@@ -65,7 +65,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             key={t.id}
             role={t.tone === "error" ? "alert" : "status"}
             className={cn(
-              "animate-fade-up pointer-events-auto flex max-w-sm items-center gap-2 rounded-xl border border-line-strong bg-surface px-3.5 py-2.5 text-[13px] font-medium text-ink shadow-float [&_svg]:size-4",
+              "animate-fade-up pointer-events-auto flex max-w-sm items-center gap-2 rounded-full bg-surface px-3.5 py-2 text-[13px] font-medium text-ink shadow-overlay [&_svg]:size-4",
             )}
           >
             {icons[t.tone]}

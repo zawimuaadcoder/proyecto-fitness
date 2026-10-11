@@ -81,7 +81,7 @@ export function PinPad({
               type="button"
               aria-label={k === "del" ? "Borrar" : k}
               onClick={() => (k === "del" ? setPin((p) => p.slice(0, -1)) : push(k))}
-              className="tabular flex h-14 items-center justify-center rounded-2xl bg-field text-xl font-medium text-ink transition-[background-color,transform] duration-100 hover:bg-hover active:scale-95"
+              className="tabular flex h-14 items-center justify-center rounded-[14px] bg-field text-xl font-medium text-ink transition-[background-color,transform] duration-100 hover:bg-hover active:scale-95"
             >
               {k === "del" ? <Delete className="size-5 text-ink-3" /> : k}
             </button>

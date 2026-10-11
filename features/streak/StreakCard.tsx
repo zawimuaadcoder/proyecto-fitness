@@ -83,7 +83,7 @@ export function StreakCard({
           </p>
         </div>
         <div className="flex flex-col items-end gap-1 text-right">
-          <span className={cn("rounded-md px-1.5 py-0.5 text-[11.5px] font-medium", streak.today === "completed" ? "bg-green-tint text-green" : streak.today === "pending" ? "bg-orange-tint text-orange" : "bg-field text-ink-3")}>
+          <span className={cn("rounded-full px-2 py-0.5 text-[12px] font-medium", streak.today === "completed" ? "bg-green-tint text-green" : streak.today === "pending" ? "bg-orange-tint text-orange" : "bg-field text-ink-3")}>
             {TODAY_COPY[streak.today]}
           </span>
           <Link href="/racha" className="tabular text-xs text-ink-3 hover:text-ink-2">

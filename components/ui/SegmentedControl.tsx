@@ -48,12 +48,12 @@ export function SegmentedControl<T extends string>({
       aria-label={label}
       onKeyDown={onKeyDown}
       className={cn(
-        "relative inline-flex rounded-[10px] border border-line bg-inset p-0.5",
+        "relative inline-flex rounded-full bg-line/60 p-0.5",
         stretch && "flex w-full",
         className,
       )}
     >
-      <span aria-hidden className="absolute left-0 top-0.5 bottom-0.5 rounded-lg border border-line-strong bg-field shadow-soft" style={style} />
+      <span aria-hidden className="absolute left-0 top-0.5 bottom-0.5 rounded-full bg-surface shadow-hairline" style={style} />
       {options.map((o) => {
         const active = o.value === value;
         return (
@@ -68,8 +68,8 @@ export function SegmentedControl<T extends string>({
             tabIndex={active ? 0 : -1}
             onClick={() => onChange(o.value)}
             className={cn(
-              "relative z-10 inline-flex items-center justify-center gap-1.5 rounded-lg font-medium whitespace-nowrap transition-colors duration-200 [&_svg]:size-3.5",
-              size === "sm" ? "h-7 px-2.5 text-xs" : "h-8 px-3 text-[13px]",
+              "relative z-10 inline-flex items-center justify-center gap-1.5 rounded-full font-medium whitespace-nowrap transition-colors duration-150 [&_svg]:size-3.5",
+              size === "sm" ? "h-6 px-2.5 text-xs" : "h-7 px-3 text-[13px]",
               stretch && "flex-1",
               active ? "text-ink" : "text-ink-3 hover:text-ink-2",
             )}

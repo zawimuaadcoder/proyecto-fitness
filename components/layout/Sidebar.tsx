@@ -3,6 +3,7 @@
 import { PanelLeftClose, PanelLeftOpen, Plus } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { GlideMenu } from "@/components/ui/GlideMenu";
 import { cn } from "@/lib/cn";
 import { useSlidingIndicator } from "@/hooks/useSlidingIndicator";
 import { useQuickAdd } from "@/features/quick-add/QuickAdd";
@@ -10,9 +11,11 @@ import { FOOTER_NAV, PRIMARY_NAV, SECONDARY_NAV, isActive, type NavItem } from "
 import { ProfileSwitcher } from "./ProfileSwitcher";
 
 /**
- * Sidebar premium colapsable (224 px ↔ 52 px). Los iconos viven en una
- * columna fija de 36 px dentro de un padding de 8 px, así que no se mueven
- * durante la transición; solo cambia la opacidad de las etiquetas.
+ * Sidebar colapsable 224 ↔ 52 px (patrón SidebarNav de Beautiful UI).
+ * Las filas tienen ancho fijo dentro de un contenedor que se recorta, así que
+ * cada icono queda centrado en x = 26 px en ambos estados; solo el texto se
+ * desvanece y se desplaza 8 px. El activo se marca con un highlight que se
+ * desliza; el hover usa otra capa deslizante (GlideMenu).
  */
 export function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => void }) {
   const pathname = usePathname();
@@ -20,6 +23,11 @@ export function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle:
   const active = all.find((i) => isActive(pathname, i))?.href ?? null;
   const { containerRef, register, style } = useSlidingIndicator<HTMLAnchorElement>(active, "y");
   const { open } = useQuickAdd();
+
+  const copy = cn(
+    "min-w-0 flex-1 truncate transition-[opacity,transform] duration-[180ms] ease-[var(--ease-expo)]",
+    collapsed && "pointer-events-none -translate-x-2 opacity-0",
+  );
 
   const link = (item: NavItem) => {
     const on = item.href === active;
@@ -29,15 +37,19 @@ export function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle:
         key={item.href}
         href={item.href}
         ref={register(item.href)}
+        data-glide-row
         aria-current={on ? "page" : undefined}
         title={collapsed ? item.label : undefined}
         className={cn(
-          "relative z-10 flex h-9 items-center gap-3 rounded-lg px-[10px] text-[13.5px] transition-colors duration-200",
-          on ? "font-medium text-ink" : "text-ink-3 hover:text-ink-2",
+          "relative z-10 flex h-8 items-center gap-2 rounded-[8px] px-2 text-[14px] font-medium transition-[width,color,transform] duration-150 active:scale-[0.98]",
+          collapsed ? "w-9" : "w-full",
+          on ? "text-ink" : "text-ink-2 hover:text-ink",
         )}
       >
-        <Icon className="size-4 shrink-0" strokeWidth={on ? 2.2 : 1.9} />
-        <span className={cn("truncate transition-opacity duration-200", collapsed ? "opacity-0" : "opacity-100")}>{item.label}</span>
+        <span className="flex size-5 shrink-0 items-center justify-center">
+          <Icon className="size-[18px]" strokeWidth={on ? 2.1 : 1.8} />
+        </span>
+        <span className={copy}>{item.label}</span>
       </Link>
     );
   };
@@ -46,48 +58,74 @@ export function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle:
     <aside
       aria-label="Navegación principal"
       className={cn(
-        "sticky top-0 hidden h-dvh shrink-0 flex-col border-r border-line bg-canvas px-2 py-3 transition-[width] duration-[260ms] ease-[var(--ease-out)] md:flex",
+        "sticky top-0 hidden h-dvh shrink-0 flex-col overflow-hidden bg-page py-3 shadow-[1px_0_0_var(--line)] transition-[width] duration-[280ms] ease-[var(--ease-expo)] md:flex",
         collapsed ? "w-[52px]" : "w-[224px]",
       )}
     >
-      <ProfileSwitcher collapsed={collapsed} />
+      <div className="px-2">
+        <ProfileSwitcher collapsed={collapsed} />
+      </div>
 
-      <button
-        type="button"
-        onClick={() => open()}
-        title={collapsed ? "Registrar" : undefined}
-        className="mt-3 flex h-9 items-center gap-3 overflow-hidden rounded-lg border border-line bg-surface px-[9px] text-[13.5px] font-medium text-ink shadow-soft transition-colors hover:border-line-strong"
-      >
-        <Plus className="size-4 shrink-0" strokeWidth={2.2} />
-        <span className={cn("flex-1 truncate text-left transition-opacity duration-200", collapsed && "opacity-0")}>Registrar</span>
-        <kbd className={cn("rounded border border-line px-1 text-[10px] text-ink-3 transition-opacity", collapsed && "opacity-0")}>N</kbd>
-      </button>
+      <div className="mt-2 px-2">
+        <button
+          type="button"
+          onClick={() => open()}
+          title={collapsed ? "Registrar" : undefined}
+          className={cn(
+            "flex h-8 items-center gap-2 overflow-hidden rounded-full bg-surface px-2 text-[14px] font-medium text-ink shadow-btn transition-[width,background-color,transform] duration-150 hover:bg-inset active:scale-[0.98]",
+            collapsed ? "w-9" : "w-full",
+          )}
+        >
+          <span className="flex size-5 shrink-0 items-center justify-center">
+            <Plus className="size-4" strokeWidth={2.2} />
+          </span>
+          <span className={cn(copy, "text-left")}>Registrar</span>
+          <kbd className={cn("mr-0.5 rounded-[5px] px-1 font-mono text-[10.5px] text-ink-3 shadow-hairline", collapsed && "opacity-0")}>N</kbd>
+        </button>
+      </div>
 
-      <nav ref={containerRef} className="relative mt-4 flex flex-1 flex-col overflow-hidden">
-        <span aria-hidden className="absolute inset-x-0 top-0 rounded-lg border border-line bg-surface shadow-soft" style={style} />
-        <div className="flex flex-col gap-0.5">{PRIMARY_NAV.map(link)}</div>
+      <nav ref={containerRef} className="relative mt-4 flex flex-1 flex-col px-2">
+        <span
+          aria-hidden
+          className={cn("absolute left-2 top-0 rounded-[8px] bg-hover-2", collapsed ? "w-9" : "right-2")}
+          style={style}
+        />
+        <GlideMenu highlightClassName={cn("left-0 rounded-[8px] bg-hover", collapsed ? "w-9" : "right-0")} className="flex flex-col gap-px">
+          {PRIMARY_NAV.map(link)}
+        </GlideMenu>
         <p
           className={cn(
-            "mb-1 mt-5 h-4 whitespace-nowrap px-[10px] text-[11px] font-medium uppercase tracking-[0.08em] text-ink-3 transition-opacity duration-200",
+            "mb-1 mt-5 h-4 whitespace-nowrap px-2 text-[12px] font-medium text-ink-3 transition-opacity duration-[180ms]",
             collapsed && "opacity-0",
           )}
         >
           Constancia
         </p>
-        <div className="flex flex-col gap-0.5">{SECONDARY_NAV.map(link)}</div>
-        <div className="mt-auto flex flex-col gap-0.5">{FOOTER_NAV.map(link)}</div>
+        <GlideMenu highlightClassName={cn("left-0 rounded-[8px] bg-hover", collapsed ? "w-9" : "right-0")} className="flex flex-col gap-px">
+          {SECONDARY_NAV.map(link)}
+        </GlideMenu>
+        <GlideMenu highlightClassName={cn("left-0 rounded-[8px] bg-hover", collapsed ? "w-9" : "right-0")} className="mt-auto flex flex-col gap-px">
+          {FOOTER_NAV.map(link)}
+        </GlideMenu>
       </nav>
 
-      <button
-        type="button"
-        onClick={onToggle}
-        aria-label={collapsed ? "Expandir barra lateral" : "Contraer barra lateral"}
-        aria-expanded={!collapsed}
-        className="mt-1 flex h-9 items-center gap-3 rounded-lg px-[10px] text-[13px] text-ink-3 hover:bg-hover hover:text-ink-2"
-      >
-        {collapsed ? <PanelLeftOpen className="size-4 shrink-0" /> : <PanelLeftClose className="size-4 shrink-0" />}
-        <span className={cn("truncate transition-opacity duration-200", collapsed && "opacity-0")}>Contraer</span>
-      </button>
+      <div className="px-2">
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-label={collapsed ? "Expandir barra lateral" : "Contraer barra lateral"}
+          aria-expanded={!collapsed}
+          className={cn(
+            "mt-1 flex h-8 items-center gap-2 rounded-[8px] px-2 text-left text-[13px] text-ink-3 transition-[width,background-color,color] duration-150 hover:bg-hover hover:text-ink-2",
+            collapsed ? "w-9" : "w-full",
+          )}
+        >
+          <span className="flex size-5 shrink-0 items-center justify-center">
+            {collapsed ? <PanelLeftOpen className="size-4" /> : <PanelLeftClose className="size-4" />}
+          </span>
+          <span className={copy}>Contraer</span>
+        </button>
+      </div>
     </aside>
   );
 }

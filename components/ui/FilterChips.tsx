@@ -31,7 +31,7 @@ export function FilterChip({
       aria-pressed={active}
       onClick={onClick}
       className={cn(
-        "relative z-10 inline-flex h-8 shrink-0 items-center gap-1.5 rounded-lg px-3 text-[13px] whitespace-nowrap transition-colors duration-200",
+        "relative z-10 inline-flex h-8 shrink-0 items-center gap-1.5 rounded-full px-3 text-[13px] whitespace-nowrap transition-colors duration-150",
         active ? "font-medium text-ink" : "text-ink-3 hover:text-ink-2",
       )}
     >
@@ -59,7 +59,7 @@ export function FilterChips<T extends string>({
   return (
     <div className={cn("-mx-4 overflow-x-auto px-4 no-scrollbar md:mx-0 md:px-0", className)}>
       <div ref={containerRef} role="group" aria-label={label} className="relative inline-flex gap-0.5">
-        <span aria-hidden className="absolute left-0 top-0 h-8 rounded-lg border border-line-strong bg-surface shadow-card" style={style} />
+        <span aria-hidden className="absolute left-0 top-0 h-8 rounded-full bg-surface shadow-card" style={style} />
         {options.map((o) => (
           <FilterChip key={o.value} active={o.value === value} onClick={() => onChange(o.value)} count={o.count} buttonRef={register(o.value)}>
             {o.label}

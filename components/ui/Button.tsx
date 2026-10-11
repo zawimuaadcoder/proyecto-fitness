@@ -8,23 +8,27 @@ import { LoaderGrid } from "./LoaderGrid";
 type Variant = "primary" | "secondary" | "ghost" | "danger" | "subtle";
 type Size = "sm" | "md" | "lg";
 
+/* Lenguaje Beautiful UI: botones en píldora, relleno con brillo interior,
+ * secundarios con anillo de 1px en lugar de borde. */
+const filledShadow = "shadow-[inset_0_1px_0_rgba(255,255,255,0.14)]";
+
 const variants: Record<Variant, string> = {
-  primary: "bg-ink text-canvas hover:opacity-90 shadow-soft",
-  secondary: "bg-field text-ink border border-line hover:border-line-strong hover:bg-hover",
-  subtle: "bg-accent-tint text-accent hover:brightness-110",
+  primary: `bg-ink text-canvas hover:opacity-90 ${filledShadow}`,
+  secondary: "bg-surface text-ink shadow-btn hover:bg-inset aria-expanded:bg-hover",
+  subtle: "bg-accent-tint text-accent-ink hover:brightness-110",
   ghost: "text-ink-2 hover:text-ink hover:bg-hover",
   danger: "bg-red-tint text-red hover:brightness-110",
 };
 
 const sizes: Record<Size, string> = {
-  sm: "h-8 px-3 text-[13px] gap-1.5 rounded-lg",
-  md: "h-10 px-4 text-sm gap-2 rounded-[10px]",
-  lg: "h-12 px-5 text-[15px] gap-2 rounded-xl",
+  sm: "h-[28px] px-3 text-[13px] gap-1.5 rounded-full [&_svg]:size-3.5",
+  md: "h-9 px-4 text-sm gap-2 rounded-full",
+  lg: "h-11 px-5 text-[15px] gap-2 rounded-full",
 };
 
 export function buttonClass(variant: Variant = "secondary", size: Size = "md", className?: string) {
   return cn(
-    "inline-flex select-none items-center justify-center font-medium whitespace-nowrap transition-[background-color,opacity,border-color,color,transform] duration-150 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
+    "inline-flex select-none items-center justify-center font-medium leading-none whitespace-nowrap transition-[background-color,opacity,box-shadow,color,transform] duration-150 ease-out active:scale-[0.96] disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
     variants[variant],
     sizes[size],
     className,
@@ -74,9 +78,9 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(functio
       aria-label={label}
       title={label}
       className={cn(
-        "inline-flex shrink-0 items-center justify-center rounded-lg transition-colors duration-150 disabled:opacity-40 [&_svg]:size-4",
-        size === "sm" ? "size-8" : "size-10",
-        variant === "ghost" ? "text-ink-3 hover:bg-hover hover:text-ink" : "border border-line bg-field text-ink-2 hover:text-ink",
+        "inline-flex shrink-0 items-center justify-center rounded-[8px] transition-[background-color,color,transform] duration-150 active:scale-[0.94] disabled:opacity-40 [&_svg]:size-4",
+        size === "sm" ? "size-7" : "size-9",
+        variant === "ghost" ? "text-ink-3 hover:bg-hover hover:text-ink" : "bg-surface text-ink-2 shadow-btn hover:text-ink",
         className,
       )}
       {...props}

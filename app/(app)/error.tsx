@@ -11,7 +11,7 @@ export default function AppError({ error, reset }: { error: Error & { digest?: s
   const offline = typeof navigator !== "undefined" && !navigator.onLine;
   return (
     <div className="mx-auto flex min-h-[60dvh] max-w-sm flex-col items-center justify-center gap-3 px-6 text-center">
-      <span className="flex size-10 items-center justify-center rounded-xl bg-red-tint text-red">
+      <span className="flex size-10 items-center justify-center rounded-[10px] bg-red-tint text-red">
         <AlertTriangle className="size-5" />
       </span>
       <h1 className="text-base font-semibold">{offline ? "Sin conexión" : "Algo no ha ido bien"}</h1>

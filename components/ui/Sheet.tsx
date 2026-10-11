@@ -84,7 +84,7 @@ export function Sheet({
         aria-modal="true"
         aria-labelledby={titleId}
         className={cn(
-          "animate-sheet-up md:animate-pop-in relative flex max-h-[92dvh] w-full flex-col rounded-t-[20px] border border-line-strong bg-surface shadow-float md:rounded-[16px]",
+          "animate-sheet-up md:animate-pop-in relative flex max-h-[92dvh] w-full flex-col rounded-t-[14px] bg-surface shadow-overlay md:rounded-[14px]",
           size === "sm" && "md:max-w-sm",
           size === "md" && "md:max-w-md",
           size === "lg" && "md:max-w-2xl",

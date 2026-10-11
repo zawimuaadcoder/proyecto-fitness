@@ -37,7 +37,7 @@ export default async function ProfilePage() {
             🔥 {a.streak.current} días · mejor {a.streak.longest} · semana {a.currentWeek.adherence}%
           </p>
         </div>
-        <Link href="/ajustes#perfil" aria-label="Editar perfil" className="flex size-9 items-center justify-center rounded-lg border border-line text-ink-2 hover:bg-hover">
+        <Link href="/ajustes#perfil" aria-label="Editar perfil" className="flex size-9 items-center justify-center rounded-full text-ink-2 shadow-btn hover:bg-hover">
           <Pencil className="size-4" />
         </Link>
       </div>

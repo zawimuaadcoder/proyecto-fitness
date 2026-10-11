@@ -78,8 +78,8 @@ function HabitForm({ habit, onDone, workoutDays }: { habit: Habit | null; onDone
               aria-label={i}
               onClick={() => setIcon(i)}
               className={cn(
-                "flex size-9 items-center justify-center rounded-[10px] border transition-colors",
-                icon === i ? "border-line-strong bg-surface text-ink shadow-card" : "border-line bg-field text-ink-3 hover:text-ink",
+                "flex size-9 items-center justify-center rounded-[8px] transition-colors",
+                icon === i ? "bg-surface text-ink shadow-card" : "bg-field shadow-hairline text-ink-3 hover:text-ink",
               )}
             >
               <HabitIcon name={i} />
@@ -123,7 +123,7 @@ function HabitForm({ habit, onDone, workoutDays }: { habit: Habit | null; onDone
         </Field>
       )}
 
-      <div className="flex flex-col divide-y divide-line rounded-xl border border-line">
+      <div className="flex flex-col divide-y divide-line rounded-[10px] border border-line">
         <label className="flex items-center justify-between gap-3 px-3.5 py-3">
           <span>
             <span className="block text-sm">Obligatorio</span>

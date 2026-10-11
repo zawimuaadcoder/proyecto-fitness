@@ -12,11 +12,14 @@ export async function checkSetup(): Promise<SetupStatus> {
   const missing = missingEnv();
   if (missing.length) return { ok: false, problem: "env", missing };
   try {
-    const { error } = await db().from("weekly_summaries").select("id", { head: true, count: "exact" }).limit(1);
+    // GET (no HEAD): así un error de PostgREST trae cuerpo con código y mensaje.
+    const { error, status } = await db().from("weekly_summaries").select("id").limit(1);
     if (error) {
+      const detail = [`HTTP ${status}`, error.code, error.message, error.hint].filter(Boolean).join(" · ");
+      console.error("[setup]", detail);
       return isMissingSchema(error.code)
-        ? { ok: false, problem: "schema", detail: error.message }
-        : { ok: false, problem: "connection", detail: error.message };
+        ? { ok: false, problem: "schema", detail }
+        : { ok: false, problem: "connection", detail };
     }
     return { ok: true };
   } catch (error) {

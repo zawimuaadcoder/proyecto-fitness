@@ -8,7 +8,7 @@ import { useSlidingIndicator } from "@/hooks/useSlidingIndicator";
 export function LinkTabs({ tabs, active, label }: { tabs: { href: string; label: string; key: string }[]; active: string; label: string }) {
   const { containerRef, register, style } = useSlidingIndicator<HTMLAnchorElement>(active, "x");
   return (
-    <div className="no-scrollbar -mx-4 overflow-x-auto px-4 md:mx-0 md:px-0">
+    <div className="no-scrollbar -mx-5 overflow-x-auto px-5 md:mx-0 md:px-0">
       <nav ref={containerRef} aria-label={label} className="relative inline-flex rounded-full bg-line/60 p-0.5">
         <span aria-hidden className="absolute left-0 top-0.5 bottom-0.5 rounded-full bg-surface shadow-hairline" style={style} />
         {tabs.map((t) => (

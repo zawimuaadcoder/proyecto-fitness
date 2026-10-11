@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 /** Contenedor de página con ancho máximo razonable. */
 export function Page({ children, wide }: { children: ReactNode; wide?: boolean }) {
   return (
-    <div className={`mx-auto w-full px-4 pt-[max(20px,env(safe-area-inset-top))] md:px-8 md:pt-8 ${wide ? "max-w-[1180px]" : "max-w-[880px]"}`}>
+    <div className={`mx-auto w-full px-5 pt-[max(20px,env(safe-area-inset-top))] md:px-8 md:pt-8 ${wide ? "max-w-[1180px]" : "max-w-[880px]"}`}>
       {children}
     </div>
   );

@@ -6,9 +6,13 @@ import { db, isMissingSchema } from "@/lib/server/supabase";
 export type SetupStatus = { ok: true } | { ok: false; problem: "env"; missing: string[] } | { ok: false; problem: "schema" | "connection"; detail: string };
 
 /** Detecta configuración incompleta para mostrar instrucciones en vez de un error. */
+let verified = false;
+
 export async function checkSetup(): Promise<SetupStatus> {
   // Siempre en tiempo de petición: nunca prerenderizar con el estado del build.
   await connection();
+  // Tras la primera comprobación correcta, no se repite en esta instancia.
+  if (verified) return { ok: true };
   const missing = missingEnv();
   if (missing.length) return { ok: false, problem: "env", missing };
   try {
@@ -21,6 +25,7 @@ export async function checkSetup(): Promise<SetupStatus> {
         ? { ok: false, problem: "schema", detail }
         : { ok: false, problem: "connection", detail };
     }
+    verified = true;
     return { ok: true };
   } catch (error) {
     return { ok: false, problem: "connection", detail: error instanceof Error ? error.message : String(error) };

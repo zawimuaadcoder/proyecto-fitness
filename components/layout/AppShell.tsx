@@ -61,7 +61,7 @@ export function AppShell({
           <OfflineSync />
           <div className="flex min-h-dvh">
             <Sidebar collapsed={collapsed} onToggle={toggle} />
-            <main id="contenido" className="min-w-0 flex-1 pb-[calc(96px+env(safe-area-inset-bottom))] md:pb-12">
+            <main id="contenido" className="min-w-0 flex-1 pb-[calc(120px+env(safe-area-inset-bottom))] md:pb-12">
               {children}
             </main>
           </div>

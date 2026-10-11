@@ -9,6 +9,7 @@ import {
   clearProfileSession,
   getGroupPasswordHash,
   grantAccess,
+  invalidateGroupPasswordHash,
   hasAccess,
   requireAccess,
   selectProfileSession,
@@ -67,6 +68,7 @@ export async function setupPassword(password: string, setupToken?: string): Prom
     const hash = await hashSecret(parsed.data);
     const { error } = await db().from("app_config").insert({ key: "group_password_hash", value: hash });
     if (error) return { ok: false, error: "No se pudo guardar (¿ya existe?)." };
+    invalidateGroupPasswordHash();
     await grantAccess(hash);
     return { ok: true };
   } catch (error) {
@@ -90,6 +92,7 @@ export async function changePassword(current: string, next: string): Promise<Act
     if (!parsed.success) return { ok: false, error: parsed.error.issues[0].message };
     const newHash = await hashSecret(parsed.data);
     unwrap(await db().from("app_config").update({ value: newHash }).eq("key", "group_password_hash"));
+    invalidateGroupPasswordHash();
     // Las demás sesiones quedan invalidadas; esta se renueva.
     await grantAccess(newHash);
     return { ok: true };

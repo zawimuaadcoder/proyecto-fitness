@@ -72,7 +72,7 @@ export function HistoryTables({
 
   return (
     <div className="flex flex-col gap-3">
-      <div className={only ? "hidden" : "no-scrollbar -mx-4 overflow-x-auto px-4 md:mx-0 md:px-0"}>
+      <div className={only ? "hidden" : "no-scrollbar -mx-5 overflow-x-auto px-5 md:mx-0 md:px-0"}>
         <SegmentedControl
           label="Tipo de registro"
           value={tab}

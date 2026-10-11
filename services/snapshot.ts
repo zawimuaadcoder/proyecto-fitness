@@ -26,17 +26,17 @@ const num = (v: unknown) => (v == null ? null : Number(v));
  * `cache` lo deduplica dentro de una misma petición.
  */
 export const loadSnapshot = cache(async (profileId: string): Promise<ProfileSnapshot | null> => {
-  const profile = await getProfile(profileId);
-  if (!profile) return null;
-  const settings = await getSettings(profileId);
   const client = db();
   const byProfile = <T,>(table: string, order = "date") =>
     fetchAll<T>((from, to) =>
       client.from(table).select("*").eq("profile_id", profileId).order(order, { ascending: true }).range(from, to),
     );
 
-  const [habitsRaw, schedules, habitLogs, weights, workouts, cardio, notes, goals, entryTypes, streakEvents, summaries] =
+  // Todas las consultas en paralelo: una sola ida y vuelta a la base de datos.
+  const [profile, settings, habitsRaw, schedules, habitLogs, weights, workouts, cardio, notes, goals, entryTypes, streakEvents, summaries] =
     await Promise.all([
+      getProfile(profileId),
+      getSettings(profileId),
       byProfile<HabitRow>("habits", "sort_order"),
       byProfile<HabitScheduleRow>("habit_schedules", "weekday"),
       byProfile<HabitLogRow>("habit_logs"),
@@ -49,6 +49,7 @@ export const loadSnapshot = cache(async (profileId: string): Promise<ProfileSnap
       byProfile<StreakEventRow>("streak_events"),
       byProfile<WeeklySummaryRow>("weekly_summaries", "week_start"),
     ]);
+  if (!profile) return null;
 
   const habits: Habit[] = habitsRaw.map((h) => ({
     ...h,

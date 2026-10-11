@@ -51,12 +51,23 @@ const cookieOptions = (days: number) => ({
 // ---------------------------------------------------------------------------
 
 /** Hash de la contraseña de grupo: variable de entorno o tabla app_config. */
+// Caché por instancia: el hash cambia rarísima vez y se consulta en cada petición.
+// Tras un cambio de contraseña, otras instancias lo ven en ≤ 60 s.
+let hashCache: { value: string | null; at: number } | null = null;
+const HASH_TTL_MS = 60_000;
+
+export function invalidateGroupPasswordHash() {
+  hashCache = null;
+}
+
 export const getGroupPasswordHash = cache(async (): Promise<string | null> => {
   const { passwordHash } = getServerEnv();
   if (passwordHash) return passwordHash;
+  if (hashCache && hashCache.value && Date.now() - hashCache.at < HASH_TTL_MS) return hashCache.value;
   const { data, error } = await db().from("app_config").select("value").eq("key", "group_password_hash").maybeSingle();
   if (error) throw error;
-  return data?.value ?? null;
+  hashCache = { value: data?.value ?? null, at: Date.now() };
+  return hashCache.value;
 });
 
 interface AccessToken {

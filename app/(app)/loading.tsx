@@ -3,7 +3,7 @@ import { LoadingLabel } from "@/components/ui/LoaderGrid";
 /** Esqueleto de carga coherente con las cards (sin spinner genérico). */
 export default function Loading() {
   return (
-    <div className="mx-auto w-full max-w-[1180px] px-4 pt-[max(20px,env(safe-area-inset-top))] md:px-8 md:pt-8">
+    <div className="mx-auto w-full max-w-[1180px] px-5 pt-[max(20px,env(safe-area-inset-top))] md:px-8 md:pt-8">
       <div className="mb-6 flex items-center justify-between">
         <div className="flex flex-col gap-2">
           <span className="h-3 w-28 rounded bg-field" />

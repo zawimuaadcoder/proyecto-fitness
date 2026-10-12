@@ -4,6 +4,7 @@ import { comparePeriods } from "@/lib/domain/compare";
 import { requireProfileId } from "@/lib/server/session";
 import { analyzeProfile } from "@/services/analysis";
 import { isActiveToday } from "@/services/app-profile";
+import { loadLeague } from "@/services/league";
 import { CardioCard } from "@/features/cardio/CardioCard";
 import { TodayHabitsCard } from "@/features/habits/TodayHabitsCard";
 import { InsightCarousel } from "@/features/insights/InsightCarousel";
@@ -58,6 +59,9 @@ export default async function TodayPage() {
     celebration = { kind: "perfect_week", value: 0, date: s.today };
   }
 
+  // Los lunes, la tarjeta de cierre muestra la jornada de la liga.
+  const league = isMonday ? await loadLeague(id) : null;
+
   const hasHistory = lastWeek.dayStatuses.some((d) => d.status !== "none") || lastWeek.workouts.count > 0 || lastWeek.cardio.minutes > 0;
   const recap = hasHistory ? (
     <WeekRecapCard
@@ -65,6 +69,7 @@ export default async function TodayPage() {
       comparisons={comparePeriods(toCompare(lastWeek), toCompare(weekBefore), unit, s.settings.goal)}
       unit={unit}
       defaultExpanded={isMonday}
+      matchday={league?.matchday}
     />
   ) : null;
 

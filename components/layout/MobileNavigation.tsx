@@ -24,7 +24,7 @@ export function MobileNavigation() {
         aria-label="Navegación principal"
         className="safe-bottom fixed inset-x-0 bottom-0 z-40 bg-page/95 shadow-[0_-1px_0_var(--line)] backdrop-blur-2xl md:hidden"
       >
-        <div className="mx-auto grid h-16 max-w-md grid-cols-5 px-2">
+        <div className="mx-auto grid h-16 max-w-md grid-cols-6 px-1">
           {MOBILE_NAV.map((item) => {
             const on = item.href === active;
             const Icon = item.icon;
@@ -37,7 +37,7 @@ export function MobileNavigation() {
               >
                 <span
                   className={cn(
-                    "flex h-7 w-14 items-center justify-center rounded-full transition-[background-color,transform] duration-200 ease-[var(--ease-out)]",
+                    "flex h-7 w-12 items-center justify-center rounded-full transition-[background-color,transform] duration-200 ease-[var(--ease-out)]",
                     on ? "scale-100 bg-hover-2" : "scale-95 bg-transparent",
                   )}
                 >

@@ -80,6 +80,7 @@ export const settingsSchema = z.object({
   weight_habits: z.number().int().min(0).max(100).optional(),
   weight_workouts: z.number().int().min(0).max(100).optional(),
   weight_cardio: z.number().int().min(0).max(100).optional(),
+  league_opt_in: z.boolean().optional(),
 });
 
 export const pinSchema = z.string().regex(/^\d{4}$/, "El PIN debe tener 4 dígitos");

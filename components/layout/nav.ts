@@ -1,4 +1,4 @@
-import { Activity, CalendarCheck2, Dumbbell, Flame, House, LineChart, Settings, Target, UserRound, type LucideIcon } from "lucide-react";
+import { Activity, CalendarCheck2, Dumbbell, Flame, House, LineChart, Settings, Target, Trophy, UserRound, type LucideIcon } from "lucide-react";
 
 export interface NavItem {
   href: string;
@@ -18,6 +18,7 @@ export const PRIMARY_NAV: NavItem[] = [
 export const SECONDARY_NAV: NavItem[] = [
   { href: "/racha", label: "Racha", icon: Flame },
   { href: "/cumplimiento", label: "Cumplimiento semanal", icon: CalendarCheck2 },
+  { href: "/liga", label: "Liga", icon: Trophy },
 ];
 
 export const FOOTER_NAV: NavItem[] = [{ href: "/ajustes", label: "Ajustes", icon: Settings }];
@@ -27,6 +28,7 @@ export const MOBILE_NAV: NavItem[] = [
   { href: "/progreso", label: "Progreso", icon: LineChart, match: ["/progreso", "/cumplimiento", "/racha"] },
   { href: "/entrenamiento", label: "Entreno", icon: Dumbbell, match: ["/entrenamiento", "/cardio"] },
   { href: "/habitos", label: "Hábitos", icon: Target },
+  { href: "/liga", label: "Liga", icon: Trophy },
   { href: "/perfil", label: "Perfil", icon: UserRound, match: ["/perfil", "/ajustes", "/historial"] },
 ];
 

@@ -15,7 +15,8 @@ Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Supabase 
 1. **Base de datos.** En Supabase → *SQL Editor*, ejecuta
    [`supabase/migrations/20261011000000_init.sql`](supabase/migrations/20261011000000_init.sql).
    Es idempotente y conserva la tabla `profiles` del prototipo anterior (los PIN en texto plano se
-   convierten a hash automáticamente la primera vez que se usan).
+   convierten a hash automáticamente la primera vez que se usan). Después ejecuta, en orden, el resto de
+   archivos de `supabase/migrations/` (limitador de intentos y liga).
 2. **Variables en Vercel** (*Settings → Environment Variables*), ver [`.env.example`](.env.example):
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `SUPABASE_SECRET_KEY` **o** `SUPABASE_SERVICE_ROLE_KEY` (la integración Vercel↔Supabase ya la crea)
@@ -86,6 +87,22 @@ tests/               Vitest
   y cardio (días y/o minutos)/objetivo, cada parte topada al 100 %. **El peso no cuenta.**
 - **Peso**: tendencia por media móvil de 7 días y medias semanales; el color es neutral salvo objetivo explícito.
 - **Metas** versionadas por semana: cambiarlas no reescribe semanas pasadas.
+
+### Liga mensual (`/liga`)
+
+Competición amistosa por **constancia frente a los objetivos propios**, no por volumen. Los puntos se
+calculan siempre desde el historial (`lib/domain/points.ts`), nunca se guardan a mano.
+
+- **Puntos**: entreno 1 · cardio 1 · día con todos los hábitos obligatorios 1 → máximo 3/día.
+  Semana ISO cerrada con ≥ 80 % de cumplimiento: +2 (se apunta el domingo). Cada 7 días seguidos de racha: +1.
+- Entrenos y cardio **por encima del objetivo semanal propio no suman**. Sin multiplicadores ni decimales.
+- **El peso no cuenta** ni aparece en la clasificación.
+- **Antitrampas**: solo puntúa lo registrado para hoy o ayer (`created_at` en la zona horaria del perfil;
+  en hábitos, la última modificación). Los descansos planificados pueden apuntarse antes y no restan.
+- **Liga** por mes natural; desempate por cumplimiento medio del mes. Al cerrar el mes, el campeón se guarda
+  en `league_titles` (🏆 ×N). Los lunes, la tarjeta de cierre semanal muestra el ganador de la jornada y tu puesto.
+- Ajuste por perfil **«Participar en la liga»** (por defecto sí). Migración:
+  [`supabase/migrations/20261012000000_league.sql`](supabase/migrations/20261012000000_league.sql).
 
 ### Offline / PWA
 

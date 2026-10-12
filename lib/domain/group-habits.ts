@@ -28,6 +28,17 @@ export const GROUP_HABIT_WEEKDAYS = [1, 2, 3, 4, 5, 6, 7];
 /** Puntos de liga por cada hábito de grupo cumplido en el día. */
 export const GROUP_HABIT_POINTS = 3;
 
+const GROUP_KEYS = new Set(GROUP_HABITS.map((g) => g.key));
+
+/** Hábito de grupo (Fajr, Entrenar, Leer Corán): 3 pts en la liga. */
 export function isGroupHabit(habit: { group_key?: string | null }): boolean {
+  return Boolean(habit.group_key && GROUP_KEYS.has(habit.group_key));
+}
+
+/**
+ * Bloqueado (nadie puede editarlo, desactivarlo ni borrarlo): hábitos de grupo
+ * y hábitos de evento de los torneos (group_key «evento:…»).
+ */
+export function isLockedHabit(habit: { group_key?: string | null }): boolean {
   return Boolean(habit.group_key);
 }

@@ -21,7 +21,12 @@ export function scheduleFor(habit: Habit, date: ISODate) {
 }
 
 export function isScheduled(habit: Habit, date: ISODate): boolean {
-  return habit.active && date >= habit.start_date && scheduleFor(habit, date) !== null;
+  return (
+    habit.active &&
+    date >= habit.start_date &&
+    (!habit.end_date || date <= habit.end_date) &&
+    scheduleFor(habit, date) !== null
+  );
 }
 
 function fmtQty(value: number): string {

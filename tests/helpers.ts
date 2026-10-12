@@ -18,6 +18,7 @@ export function habit(partial: Partial<Habit> & { kind?: HabitKind; weekdays?: n
     active: partial.active ?? true,
     sort_order: 0,
     start_date: partial.start_date ?? "2026-01-01",
+    end_date: partial.end_date ?? null,
     group_key: partial.group_key ?? null,
     created_at: "",
     updated_at: "",

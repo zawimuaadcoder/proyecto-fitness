@@ -40,7 +40,7 @@ export function buildAppProfile(analysis: ProfileAnalysis, profiles: PublicProfi
     customTypes: custom.map((t) => ({ id: t.id, category: t.category, name: t.name })),
     activeToday: isActiveToday(s),
     habits: analysis.snapshot.habits
-      .filter((h) => h.active)
+      .filter((h) => h.active && (!h.end_date || h.end_date >= s.today))
       .map((h) => {
         const r = analysis.today.habits.find((x) => x.habit.id === h.id);
         return {

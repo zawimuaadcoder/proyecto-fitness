@@ -9,6 +9,7 @@ import { analyzeProfile } from "@/services/analysis";
 import { buildAppProfile } from "@/services/app-profile";
 import { listProfiles } from "@/services/profiles";
 import { checkSetup } from "@/services/setup";
+import { scheduleEventHabits } from "@/services/tournaments";
 
 export default async function AppLayout({ children }: { children: ReactNode }) {
   const setup = await checkSetup();
@@ -20,6 +21,8 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
   const s = analysis.snapshot;
   const empty = !s.settings.onboarded && s.habits.length === 0 && s.weights.length === 0 && s.workouts.length === 0;
   if (empty) redirect("/onboarding");
+  // Torneos con hábitos propios (Ramadán: Ayuno, Taraweeh…): se crean solos.
+  scheduleEventHabits(s);
 
   return (
     <AppShell value={buildAppProfile(analysis, profiles)} initialCollapsed={jar.get(SIDEBAR_COOKIE)?.value === "1"}>

@@ -1,11 +1,13 @@
-import { Activity, CalendarCheck2, ChevronRight, Flame, History, Pencil, Settings, Table2 } from "lucide-react";
+import { Activity, Award, CalendarCheck2, ChevronRight, Flame, History, Medal, Pencil, Settings, Table2 } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Page } from "@/components/layout/Page";
 import { Avatar } from "@/components/ui/Avatar";
-import { Card } from "@/components/ui/Card";
+import { Card, CardHeader } from "@/components/ui/Card";
 import { requireProfileId } from "@/lib/server/session";
 import { analyzeProfile } from "@/services/analysis";
+import { loadPalmares } from "@/services/tournaments";
+import { TrophyShelf } from "@/features/tournaments/TournamentViews";
 import { SessionCard } from "@/features/settings/AccountCards";
 import { ThemeCard } from "@/features/settings/PreferencesCard";
 
@@ -15,6 +17,7 @@ const LINKS = [
   { href: "/racha", label: "Racha", icon: Flame },
   { href: "/cumplimiento", label: "Cumplimiento semanal", icon: CalendarCheck2 },
   { href: "/cardio", label: "Cardio", icon: Activity },
+  { href: "/torneos", label: "Torneos y palmarés", icon: Medal },
   { href: "/progreso?tab=semanas", label: "Semanas", icon: History },
   { href: "/progreso?tab=historial", label: "Historial avanzado", icon: Table2 },
   { href: "/ajustes", label: "Ajustes", icon: Settings },
@@ -23,8 +26,9 @@ const LINKS = [
 /** Pestaña "Perfil" en móvil: opciones secundarias y cuenta. */
 export default async function ProfilePage() {
   const id = await requireProfileId();
-  const a = await analyzeProfile(id);
+  const [a, palmares] = await Promise.all([analyzeProfile(id), loadPalmares(id)]);
   if (!a) redirect("/perfiles");
+  const trophies = palmares.find((e) => e.profile.id === id)?.trophies ?? [];
   const p = a.snapshot.profile;
 
   return (
@@ -42,6 +46,10 @@ export default async function ProfilePage() {
         </Link>
       </div>
       <div className="flex flex-col gap-3">
+        <Card>
+          <CardHeader icon={<Award />} title="Palmarés" />
+          <TrophyShelf trophies={trophies} />
+        </Card>
         <Card padded={false}>
           <ul className="divide-y divide-line">
             {LINKS.map(({ href, label, icon: Icon }) => (

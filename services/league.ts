@@ -8,6 +8,7 @@ import { computeStreak, computeTimeline } from "@/lib/domain/streak";
 import { computeWeek } from "@/lib/domain/week";
 import { db, unwrap } from "@/lib/server/supabase";
 import type { LeagueTitleRow, PublicProfile } from "@/types/db";
+import type { ProfileSnapshot } from "@/types/domain";
 import { contextFromSnapshot } from "./analysis";
 import { isActiveToday } from "./app-profile";
 import { listProfiles } from "./profiles";
@@ -60,11 +61,34 @@ interface Participant {
   activeToday: boolean;
 }
 
+/** Participa en liga y torneos: ha activado la opción y tiene algo registrado. */
+export function isLeagueParticipant(s: ProfileSnapshot): boolean {
+  if (!s.settings.league_opt_in) return false;
+  return s.settings.onboarded || s.habits.length > 0 || s.workouts.length > 0 || s.cardio.length > 0;
+}
+
+/** Contexto de liga de un perfil: su historial con solo lo registrado a tiempo. */
+export function leagueContextOf(s: ProfileSnapshot) {
+  return leagueContext(
+    {
+      today: s.today,
+      settings: s.settings,
+      habits: s.habits,
+      habitLogs: s.habitLogs,
+      weights: s.weights,
+      workouts: s.workouts,
+      cardio: s.cardio,
+      goals: s.goals,
+    },
+    s.settings.timezone,
+  );
+}
+
 function sumRange(days: Map<ISODate, DayPoints>, from: ISODate, to: ISODate): number {
   return sumPoints([...days.values()], from, to);
 }
 
-async function readTitles(): Promise<LeagueTitleRow[] | null> {
+export async function readTitles(): Promise<LeagueTitleRow[] | null> {
   try {
     return unwrap(await db().from("league_titles").select("*").order("month", { ascending: false })) as LeagueTitleRow[];
   } catch (error) {
@@ -92,22 +116,8 @@ export const loadLeague = cache(async (viewerId: string): Promise<League | null>
   const snapshots = await Promise.all(profiles.map((p) => loadSnapshot(p.id)));
   const participants: Participant[] = [];
   for (const s of snapshots) {
-    if (!s || !s.settings.league_opt_in) continue;
-    const empty = !s.settings.onboarded && s.habits.length === 0 && s.workouts.length === 0 && s.cardio.length === 0;
-    if (empty) continue;
-    const ctx = leagueContext(
-      {
-        today: s.today,
-        settings: s.settings,
-        habits: s.habits,
-        habitLogs: s.habitLogs,
-        weights: s.weights,
-        workouts: s.workouts,
-        cardio: s.cardio,
-        goals: s.goals,
-      },
-      s.settings.timezone,
-    );
+    if (!s || !isLeagueParticipant(s)) continue;
+    const ctx = leagueContextOf(s);
     const days = new Map(computeDayPoints(ctx, prevMonthStart, s.today).map((d) => [d.date, d]));
     // La racha que se muestra es la de siempre (la llama de la app).
     const real = contextFromSnapshot(s);

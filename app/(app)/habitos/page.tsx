@@ -23,7 +23,10 @@ export default async function HabitsPage() {
       <div className="grid gap-4 lg:grid-cols-2 lg:items-start">
         <TodayHabitsCard habits={a.today.habits} />
         <Suspense>
-          <HabitManager habits={a.snapshot.habits} workoutDays={a.snapshot.settings.workout_days} />
+          <HabitManager
+            // Los hábitos de un torneo terminado dejan de mostrarse (su historial se conserva).
+            habits={a.snapshot.habits.filter((h) => !h.end_date || h.end_date >= a.snapshot.today)}
+            workoutDays={a.snapshot.settings.workout_days} />
         </Suspense>
       </div>
     </Page>

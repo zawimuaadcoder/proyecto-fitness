@@ -10,6 +10,8 @@ import { POINTS } from "@/lib/domain/points";
 import { requireProfileId } from "@/lib/server/session";
 import { loadLeague } from "@/services/league";
 import { loadSnapshot } from "@/services/snapshot";
+import { featuredTournament } from "@/services/tournaments";
+import { TournamentLink } from "@/features/tournaments/TournamentViews";
 import { Countdown } from "@/features/league/Countdown";
 import { LeagueHeatmap, LeagueTable, Podium } from "@/features/league/LeagueViews";
 
@@ -24,6 +26,7 @@ export default async function LeaguePage() {
   const remainingMs = ((diffDays(league.monthEnd, league.today) + 1) * 1440 - (h * 60 + m)) * 60_000;
   const { members, matchday } = league;
   const leader = members[0];
+  const tournament = featuredTournament(league.today);
 
   return (
     <Page wide>
@@ -40,6 +43,12 @@ export default async function LeaguePage() {
           </span>
         }
       />
+
+      {tournament && (
+        <div className="animate-fade-up mb-3 md:mb-4">
+          <TournamentLink summary={tournament} compact />
+        </div>
+      )}
 
       {!league.meParticipates && (
         <Card className="mb-3 md:mb-4">
@@ -109,7 +118,15 @@ export default async function LeaguePage() {
             )}
 
             <Card className="animate-fade-up" style={{ animationDelay: "100ms" }}>
-              <CardHeader icon={<Trophy />} title="Títulos" />
+              <CardHeader
+                icon={<Trophy />}
+                title="Títulos"
+                action={
+                  <Link href="/torneos" className="text-[13px] font-medium text-accent hover:underline">
+                    Palmarés
+                  </Link>
+                }
+              />
               {league.titles.length ? (
                 <ul className="flex flex-col gap-2">
                   {league.titles.map((t) => (

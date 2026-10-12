@@ -16,7 +16,7 @@ Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Supabase 
    [`supabase/migrations/20261011000000_init.sql`](supabase/migrations/20261011000000_init.sql).
    Es idempotente y conserva la tabla `profiles` del prototipo anterior (los PIN en texto plano se
    convierten a hash automáticamente la primera vez que se usan). Después ejecuta, en orden, el resto de
-   archivos de `supabase/migrations/` (limitador de intentos y liga).
+   archivos de `supabase/migrations/` (limitador de intentos, liga, hábitos de grupo y torneos).
 2. **Variables en Vercel** (*Settings → Environment Variables*), ver [`.env.example`](.env.example):
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `SUPABASE_SECRET_KEY` **o** `SUPABASE_SERVICE_ROLE_KEY` (la integración Vercel↔Supabase ya la crea)
@@ -109,6 +109,26 @@ calculan siempre desde el historial (`lib/domain/points.ts`), nunca se guardan a
   en `league_titles` (🏆 ×N). Los lunes, la tarjeta de cierre semanal muestra el ganador de la jornada y tu puesto.
 - Ajuste por perfil **«Participar en la liga»** (por defecto sí). Migración:
   [`supabase/migrations/20261012000000_league.sql`](supabase/migrations/20261012000000_league.sql).
+
+### Torneos especiales (`/torneos`)
+
+Épocas con nombre propio y retos especiales, **en paralelo a la liga mensual**. Viven en código
+(`lib/domain/tournaments.ts`): para añadir uno basta con sumarlo a `TOURNAMENTS`.
+
+- **Calendario**: ❄️ **Winter Arc** (1 nov 2026 → 31 ene 2027) y 🌙 **Ramadán** (8 feb → 9 mar 2027,
+  fechas aproximadas según la luna).
+- **Puntos** = los de la liga de cada día (mismas reglas y antitrampas) + los **retos** del torneo. Tipos de
+  reto: diario (puntos cada día), semanal (al llegar a N días en la semana), racha (cada N días seguidos) y
+  total (una vez, al llegar a N días en el torneo).
+- **Formato Champions**: fase regular por puntos y, la última semana, **Final** entre los 2 primeros (solo
+  cuentan los puntos de la Final; empate → mejor puesto en la fase regular). Bronce: el mejor del resto por
+  total del torneo.
+- **Hábitos de evento** (Ayuno y Taraweeh en Ramadán): se crean solos una semana antes para quien está en la
+  liga, con `habits.end_date` = fin del torneo. Opcionales (no rompen la racha), bloqueados y sin puntos de
+  liga; solo puntúan en el torneo. Al terminar dejan de mostrarse, pero su historial se conserva.
+- **Palmarés**: títulos de liga + podios de torneos (`tournament_trophies`, se guardan al terminar). Se ve en
+  `/torneos` y en el perfil. Participa quien tiene activada «Participar en la liga». Migración:
+  [`supabase/migrations/20261013000000_tournaments.sql`](supabase/migrations/20261013000000_tournaments.sql).
 
 ### Offline / PWA
 

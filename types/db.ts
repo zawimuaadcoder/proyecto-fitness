@@ -115,6 +115,8 @@ export interface HabitRow {
   active: boolean;
   sort_order: number;
   start_date: string;
+  /** Último día (incluido) en que se programa; null = sin fin. Hábitos de evento de los torneos. */
+  end_date: string | null;
   /** Hábito de grupo (obligatorio y bloqueado para todos); null = personal. */
   group_key: string | null;
   created_at: string;
@@ -187,4 +189,14 @@ export interface LeagueTitleRow {
   profile_id: string;
   points: number;
   adherence: number;
+}
+
+export interface TournamentTrophyRow {
+  id: string;
+  /** id del torneo en lib/domain/tournaments.ts. */
+  tournament_id: string;
+  profile_id: string;
+  /** 1 campeón · 2 subcampeón · 3 bronce. */
+  place: 1 | 2 | 3;
+  points: number;
 }

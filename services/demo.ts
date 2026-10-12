@@ -3,6 +3,7 @@ import { addDays, isoWeekday, startOfWeek, todayInTimeZone } from "@/lib/dates";
 import { round } from "@/lib/format";
 import { db, unwrap } from "@/lib/server/supabase";
 import { hashSecret } from "@/lib/server/crypto";
+import { ensureGroupHabits } from "./habits";
 
 /** PRNG determinista para que los datos demo sean estables. */
 function rng(seed: number) {
@@ -204,6 +205,7 @@ async function createDemoProfile(opts: {
       { profile_id: pid, date: addDays(today, -9), body: "Semana con viaje: cardio caminando." },
     ]),
   );
+  await ensureGroupHabits(pid, today);
   return pid;
 }
 

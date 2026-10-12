@@ -8,6 +8,7 @@ import { Field, NumberStepper, Switch, WeekdayPicker } from "@/components/ui/Inp
 import { SegmentedControl } from "@/components/ui/SegmentedControl";
 import { ChoiceButton, WizardCard } from "@/components/ui/WizardCard";
 import { GOAL_LABELS } from "@/lib/constants";
+import { GROUP_HABIT_POINTS, GROUP_HABITS } from "@/lib/domain/group-habits";
 import { cn } from "@/lib/cn";
 import type { CardioMode, Goal, HabitKind, WeightUnit } from "@/types/db";
 import { completeOnboarding } from "@/features/settings/actions";
@@ -29,7 +30,6 @@ const ALL = [1, 2, 3, 4, 5, 6, 7];
 
 const PRESETS: PresetHabit[] = [
   { key: "weight", name: "Registrar peso", icon: "scale", kind: "weight", weekdays: [1, 3, 5], required: true, on: true, hint: "L · X · V" },
-  { key: "workout", name: "Entrenamiento", icon: "dumbbell", kind: "workout", weekdays: [], required: true, on: true, hint: "Tus días de entreno" },
   { key: "cardio", name: "Cardio 30 min", icon: "footprints", kind: "cardio", weekdays: [2, 4, 6], targetValue: 30, unit: "min", required: true, on: true, hint: "M · J · S" },
   { key: "water", name: "Agua", icon: "droplet", kind: "quantity", weekdays: ALL, targetValue: 2.5, unit: "L", required: true, on: true, hint: "2,5 L diarios" },
   { key: "sleep", name: "Dormir 7 h", icon: "moon", kind: "check", weekdays: ALL, required: false, on: false, hint: "Opcional" },
@@ -231,6 +231,22 @@ export function OnboardingWizard({ name }: { name: string }) {
           nextLabel="Terminar"
           pending={pending}
         >
+          <p className="mb-2 text-xs font-medium text-ink-3">Del grupo · obligatorios todos los días</p>
+          <ul className="mb-4 flex flex-col divide-y divide-line rounded-[10px] bg-surface shadow-card">
+            {GROUP_HABITS.map((h) => (
+              <li key={h.key} className="flex items-center gap-3 px-3.5 py-3">
+                <span className="flex size-8 items-center justify-center rounded-lg bg-accent-tint text-accent">
+                  <HabitIcon name={h.icon} />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm font-medium">{h.name}</span>
+                  <span className="block text-xs text-ink-3">Todos los días · {GROUP_HABIT_POINTS} pts en la liga</span>
+                </span>
+                <span className="rounded-md bg-orange-tint px-2 py-1 text-[11px] font-medium text-orange">Grupo</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mb-2 text-xs font-medium text-ink-3">Tuyos</p>
           <ul className="flex flex-col divide-y divide-line rounded-[10px] bg-surface shadow-card">
             {habits.map((h, i) => (
               <li key={h.key} className="flex items-center gap-3 px-3.5 py-3">

@@ -144,6 +144,8 @@ function normalizeSettings(row: ProfileSettingsRow): ProfileSettingsRow {
     ...row,
     target_weight: row.target_weight != null ? Number(row.target_weight) : null,
     workout_days: [...(row.workout_days ?? [])].map(Number).sort(),
+    // Sin la migración de la liga la columna no existe: participa por defecto.
+    league_opt_in: row.league_opt_in ?? true,
   };
 }
 

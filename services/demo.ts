@@ -187,6 +187,13 @@ async function createDemoProfile(opts: {
     }
   }
 
+  // Registrados "a su hora": la liga solo puntúa lo apuntado el mismo día o el siguiente.
+  for (const row of [...weights, ...workouts, ...cardio, ...logs]) {
+    const stamp = `${row.date as string}T12:00:00Z`;
+    row.created_at = stamp;
+    row.updated_at = stamp;
+  }
+
   await insertMany("weight_entries", weights);
   await insertMany("workout_entries", workouts);
   await insertMany("cardio_entries", cardio);

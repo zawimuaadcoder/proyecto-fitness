@@ -65,6 +65,17 @@ export function isoWeekNumber(date: ISODate): number {
   return Math.floor(diffDays(thursday, yearStart) / 7) + 1;
 }
 
+/** Primer día del mes natural de la fecha. */
+export function startOfMonth(date: ISODate): ISODate {
+  return `${date.slice(0, 7)}-01`;
+}
+
+/** Último día del mes natural de la fecha. */
+export function endOfMonth(date: ISODate): ISODate {
+  const [y, m] = date.split("-").map(Number);
+  return fromUTC(Date.UTC(y, m, 0));
+}
+
 export function minDate(a: ISODate, b: ISODate): ISODate {
   return a < b ? a : b;
 }
@@ -179,6 +190,12 @@ export function formatRelativeDay(date: ISODate, today: ISODate): string {
   if (diff === -1) return "Ayer";
   if (diff === 1) return "Mañana";
   return `${weekdayAbbr(isoWeekday(date))} ${formatShortDate(date)}`;
+}
+
+/** "octubre 2026" */
+export function formatMonthYear(date: ISODate): string {
+  const { y, m } = parts(date);
+  return `${MONTH_LONG[m - 1]} ${y}`;
 }
 
 export function monthLabel(date: ISODate): string {

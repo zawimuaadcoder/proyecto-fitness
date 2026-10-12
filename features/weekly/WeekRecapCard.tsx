@@ -12,6 +12,7 @@ import { formatPercent, formatWeight } from "@/lib/format";
 import type { Comparison } from "@/lib/domain/compare";
 import type { WeightUnit } from "@/types/db";
 import type { WeekMetrics } from "@/types/domain";
+import type { Matchday } from "@/services/league";
 
 /**
  * Card especial de cierre semanal. Los lunes aparece destacada y expandida;
@@ -22,11 +23,14 @@ export function WeekRecapCard({
   comparisons,
   unit,
   defaultExpanded,
+  matchday,
 }: {
   week: WeekMetrics;
   comparisons: Comparison[];
   unit: WeightUnit;
   defaultExpanded: boolean;
+  /** Ganador de la jornada de la liga y tu puesto (los lunes). */
+  matchday?: Matchday | null;
 }) {
   const [open, setOpen] = useState(defaultExpanded);
   const met = week.objectives.filter((o) => o.met).length;
@@ -89,6 +93,28 @@ export function WeekRecapCard({
                 </li>
               ))}
             </ul>
+          )}
+
+          {matchday && (matchday.winners.length > 0 || matchday.me) && (
+            <Link
+              href="/liga"
+              className="mt-4 flex items-center gap-3 rounded-[10px] bg-field px-3 py-2.5 transition-colors hover:bg-hover"
+            >
+              <span aria-hidden className="text-[20px] leading-none">🏆</span>
+              <span className="min-w-0 flex-1 text-[13px]">
+                <span className="block truncate text-ink">
+                  {matchday.winners.length
+                    ? <>Jornada para <span className="font-semibold">{matchday.winners.map((w) => w.profile.name).join(" y ")}</span> · <span className="tabular">{matchday.winners[0].points} pts</span></>
+                    : "Nadie puntuó en la jornada"}
+                </span>
+                {matchday.me && (
+                  <span className="block text-xs text-ink-3">
+                    Tú: <span className="tabular">{matchday.me.position}.º de {matchday.me.of} · {matchday.me.points} pts</span>
+                  </span>
+                )}
+              </span>
+              <span className="text-xs font-medium text-accent">Liga</span>
+            </Link>
           )}
 
           {comparisons.length > 0 && (

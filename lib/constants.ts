@@ -96,3 +96,6 @@ export const LOCAL_PREFS = {
 } as const;
 
 export const SIDEBAR_COOKIE = "fs_sidebar";
+
+/** Primer mes de la liga: los meses anteriores no reparten títulos. */
+export const LEAGUE_START_MONTH = "2026-10-01";

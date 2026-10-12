@@ -8,6 +8,7 @@ import { AdherenceWeightsCard } from "@/features/settings/AdherenceWeightsCard";
 import { GoalsCard } from "@/features/settings/GoalsCard";
 import { PreferencesCard, ThemeCard } from "@/features/settings/PreferencesCard";
 import { TrainingDaysCard } from "@/features/settings/TrainingDaysCard";
+import { LeagueOptInCard } from "@/features/league/LeagueOptInCard";
 
 export const metadata = { title: "Ajustes" };
 
@@ -28,6 +29,7 @@ export default async function SettingsPage() {
           <AdherenceWeightsCard weights={{ habits: st.weight_habits, workouts: st.weight_workouts, cardio: st.weight_cardio }} habitsGoal={st.habits_goal_percent} />
           <SectionTitle>Preferencias</SectionTitle>
           <PreferencesCard unit={st.weight_unit} timezone={st.timezone} goal={st.goal} targetWeight={st.target_weight} />
+          <LeagueOptInCard optIn={st.league_opt_in} />
           <ThemeCard />
           <CustomTypesCard />
         </div>

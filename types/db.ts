@@ -46,6 +46,8 @@ export interface ProfileSettingsRow {
   current_streak: number;
   longest_streak: number;
   streak_updated_on: string | null;
+  /** "Participar en la liga" (por defecto sí). */
+  league_opt_in: boolean;
   created_at: string;
   updated_at: string;
 }
@@ -174,4 +176,13 @@ export interface StreakEventRow {
   kind: StreakEventKind;
   value: number;
   seen_at: string | null;
+}
+
+export interface LeagueTitleRow {
+  id: string;
+  /** Día 1 del mes ganado. */
+  month: string;
+  profile_id: string;
+  points: number;
+  adherence: number;
 }

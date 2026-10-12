@@ -14,6 +14,7 @@ import {
   Salad,
   Scale,
   Sun,
+  Sunrise,
   Timer,
   type LucideIcon,
 } from "lucide-react";
@@ -31,6 +32,7 @@ const ICONS: Record<string, LucideIcon> = {
   salad: Salad,
   pill: Pill,
   sun: Sun,
+  sunrise: Sunrise,
   heart: Heart,
   coffee: Coffee,
   bike: Bike,

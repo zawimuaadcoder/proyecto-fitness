@@ -115,6 +115,8 @@ export interface HabitRow {
   active: boolean;
   sort_order: number;
   start_date: string;
+  /** Hábito de grupo (obligatorio y bloqueado para todos); null = personal. */
+  group_key: string | null;
   created_at: string;
   updated_at: string;
 }

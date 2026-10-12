@@ -6,7 +6,7 @@ import { profileAction, UserFacingError } from "@/lib/server/action";
 import { db } from "@/lib/server/supabase";
 import { goalsSchema, isoDate, settingsSchema } from "@/lib/validation";
 import { upsertGoals } from "@/services/goals";
-import { createHabit, syncWorkoutHabitDays } from "@/services/habits";
+import { createHabit, ensureGroupHabits, syncWorkoutHabitDays } from "@/services/habits";
 import { getSettings, updateSettings } from "@/services/profiles";
 
 export async function saveGoals(input: unknown) {
@@ -79,6 +79,7 @@ export async function completeOnboarding(input: unknown) {
         });
       }
     }
+    await ensureGroupHabits(pid, today);
   });
 }
 

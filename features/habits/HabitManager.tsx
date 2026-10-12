@@ -13,6 +13,7 @@ import { Highlight, SearchList } from "@/components/ui/SearchList";
 import { cn } from "@/lib/cn";
 import { HABIT_KIND_LABELS } from "@/lib/constants";
 import { weekdayLetter } from "@/lib/dates";
+import { GROUP_HABIT_POINTS, isGroupHabit } from "@/lib/domain/group-habits";
 import { formatNumber } from "@/lib/format";
 import { useAction } from "@/features/offline/useMutation";
 import type { Habit } from "@/types/domain";
@@ -69,10 +70,12 @@ export function HabitManager({ habits, workoutDays }: { habits: Habit[]; workout
           placeholder="Buscar hábito…"
           getKey={(h) => h.id}
           getText={(h) => `${h.name} ${HABIT_KIND_LABELS[h.kind]}`}
-          onSelect={(h) => openEditor(h)}
+          // Los hábitos del grupo están bloqueados: no se abren en el editor.
+          onSelect={(h) => !isGroupHabit(h) && openEditor(h)}
           emptyText="Ningún hábito coincide"
           renderItem={(h, { query }) => {
             const target = h.schedules[0]?.target_value;
+            const group = isGroupHabit(h);
             return (
               <div className={cn("flex min-h-14 items-center gap-3 px-2 py-2", !h.active && "opacity-55")}>
                 <span className="flex size-9 shrink-0 items-center justify-center rounded-[10px] bg-field text-ink-2">
@@ -85,22 +88,27 @@ export function HabitManager({ habits, workoutDays }: { habits: Habit[]; workout
                   <span className="block truncate text-xs text-ink-3">
                     {scheduleLabel(h)}
                     {target != null && ` · ${formatNumber(target, 2)} ${h.schedules[0]?.unit ?? ""}`}
+                    {group && ` · ${GROUP_HABIT_POINTS} pts en la liga`}
                   </span>
                 </span>
                 <span className="hidden gap-1 sm:flex">
                   <EntityChip>{HABIT_KIND_LABELS[h.kind]}</EntityChip>
-                  {h.required && <EntityChip color="var(--orange)">Obligatorio</EntityChip>}
+                  {h.required && !group && <EntityChip color="var(--orange)">Obligatorio</EntityChip>}
                 </span>
-                <span onClick={(e) => e.stopPropagation()}>
-                  <Switch
-                    checked={h.active}
-                    label={`${h.active ? "Desactivar" : "Activar"} ${h.name}`}
-                    onChange={async (v) => {
-                      await run(() => toggleHabitActive({ id: h.id, active: v }), v ? "Hábito activado" : "Hábito desactivado");
-                      router.refresh();
-                    }}
-                  />
-                </span>
+                {group ? (
+                  <EntityChip color="var(--orange)">Grupo</EntityChip>
+                ) : (
+                  <span onClick={(e) => e.stopPropagation()}>
+                    <Switch
+                      checked={h.active}
+                      label={`${h.active ? "Desactivar" : "Activar"} ${h.name}`}
+                      onChange={async (v) => {
+                        await run(() => toggleHabitActive({ id: h.id, active: v }), v ? "Hábito activado" : "Hábito desactivado");
+                        router.refresh();
+                      }}
+                    />
+                  </span>
+                )}
               </div>
             );
           }}

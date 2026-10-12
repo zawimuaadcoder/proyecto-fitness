@@ -94,6 +94,12 @@ Competición amistosa por **constancia frente a los objetivos propios**, no por 
 calculan siempre desde el historial (`lib/domain/points.ts`), nunca se guardan a mano.
 
 - **Puntos**: entreno 1 · cardio 1 · día con todos los hábitos obligatorios 1 → máximo 3/día.
+- **Hábitos de grupo** (Fajr, Entrenar, Leer Corán): obligatorios para todos, todos los días, en ese orden y
+  bloqueados (nadie puede editarlos, desactivarlos ni borrarlos). Valen **3 puntos cada uno**, fuera del tope
+  diario (hasta +9/día). «Entrenar» se completa al registrar un entreno y puntúa aunque se supere el objetivo
+  semanal; un descanso planificado no suma ni rompe. Definidos en `lib/domain/group-habits.ts`; los perfiles
+  nuevos los reciben al terminar el onboarding. Migración:
+  [`supabase/migrations/20261012010000_group_habits.sql`](supabase/migrations/20261012010000_group_habits.sql).
   Semana ISO cerrada con ≥ 80 % de cumplimiento: +2 (se apunta el domingo). Cada 7 días seguidos de racha: +1.
 - Entrenos y cardio **por encima del objetivo semanal propio no suman**. Sin multiplicadores ni decimales.
 - **El peso no cuenta** ni aparece en la clasificación.

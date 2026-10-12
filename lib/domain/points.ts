@@ -1,5 +1,6 @@
 import { addDays, dateRange, diffDays, minDate, startOfWeek, type ISODate } from "@/lib/dates";
 import { buildContext, type ContextInput, type DomainContext } from "./context";
+import { GROUP_HABIT_POINTS, isGroupHabit } from "./group-habits";
 import { evaluateDay } from "./habits";
 import { rangeStats } from "./stats";
 import { computeTimeline } from "./streak";
@@ -13,6 +14,7 @@ import { adherenceWeights, computeAdherence, computeWeek, goalsForWeek } from ".
  *   cardio             1  (como mucho 1 al día y hasta el objetivo semanal propio)
  *   día de hábitos     1  (todos los obligatorios programados cumplidos)
  *   → tope de 3 puntos base por día
+ *   hábito de grupo    3  (Fajr, Entrenar, Leer Corán; fuera del tope → hasta +9)
  *   semana ≥ 80 %     +2  (semana ISO cerrada; se apunta el domingo)
  *   cada 7 de racha   +1  (el día en que la racha llega a 7, 14, 21…)
  *
@@ -25,6 +27,7 @@ export const POINTS = {
   cardio: 1,
   habits: 1,
   dailyCap: 3,
+  groupHabit: GROUP_HABIT_POINTS,
   weekBonus: 2,
   weekThreshold: 80,
   streakEvery: 7,
@@ -36,6 +39,8 @@ export interface DayPoints {
   workout: number;
   cardio: number;
   habits: number;
+  /** Hábitos de grupo cumplidos (3 cada uno, fuera del tope diario). */
+  group: number;
   /** Bonus por racha múltiplo de 7. */
   streak: number;
   /** Bonus por semana cerrada con ≥ 80 %. */
@@ -143,7 +148,10 @@ export function computeDayPoints(ctx: DomainContext, from: ISODate, to: ISODate)
         cardioMinutes += minutes;
       }
 
-      const habits = evaluateDay(date, ctx).status === "completed" ? POINTS.habits : 0;
+      const evaluation = evaluateDay(date, ctx);
+      const habits = evaluation.status === "completed" ? POINTS.habits : 0;
+      const group =
+        evaluation.habits.filter((r) => isGroupHabit(r.habit) && r.status === "completed").length * POINTS.groupHabit;
 
       const day = byDate.get(date);
       const streak =
@@ -156,7 +164,7 @@ export function computeDayPoints(ctx: DomainContext, from: ISODate, to: ISODate)
 
       if (date < from) continue;
       const base = Math.min(POINTS.dailyCap, workout + cardio + habits);
-      out.push({ date, workout, cardio, habits, streak, week, total: base + streak + week });
+      out.push({ date, workout, cardio, habits, group, streak, week, total: base + group + streak + week });
     }
   }
   return out;

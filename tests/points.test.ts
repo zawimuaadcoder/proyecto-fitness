@@ -212,3 +212,64 @@ describe("clasificación", () => {
     expect(endOfMonth("2026-12-31")).toBe("2026-12-31");
   });
 });
+
+describe("hábitos de grupo", () => {
+  const start = "2026-10-05";
+  const fajr = habit({ name: "Fajr", group_key: "fajr", start_date: start });
+  const entrenar = habit({ name: "Entrenar", kind: "workout", group_key: "workout", start_date: start });
+  const quran = habit({ name: "Leer Corán", group_key: "quran", start_date: start });
+  const habits = [fajr, entrenar, quran];
+
+  it("valen 3 cada uno y van fuera del tope diario", () => {
+    const c = ctx({
+      today: "2026-10-12",
+      habits,
+      habitLogs: [log(fajr.id, "2026-10-05"), log(quran.id, "2026-10-05"), log(fajr.id, "2026-10-06")],
+      workouts: [workout("2026-10-05")],
+      cardio: [cardio("2026-10-05", 30)],
+    });
+    const [mon, tue] = computeDayPoints(c, "2026-10-05", "2026-10-06");
+    // Lunes: 3 base (entreno + cardio + día de hábitos) + 3 × 3 de grupo
+    expect(mon).toMatchObject({ workout: 1, cardio: 1, habits: 1, group: 9, total: 12 });
+    // Martes: solo Fajr → 3, y el día de hábitos no se completa
+    expect(tue).toMatchObject({ habits: 0, group: 3, total: 3 });
+  });
+
+  it("Entrenar puntúa cada día aunque se pase del objetivo semanal; el descanso no suma ni rompe", () => {
+    const c = ctx({
+      today: "2026-10-12",
+      habits,
+      goals: [goal({ workout_sessions_target: 1 })],
+      habitLogs: [log(fajr.id, "2026-10-07"), log(quran.id, "2026-10-07")],
+      workouts: [workout("2026-10-05"), workout("2026-10-06"), workout("2026-10-07", "Descanso", true)],
+    });
+    const [mon, tue, wed] = computeDayPoints(c, "2026-10-05", "2026-10-07");
+    expect(mon).toMatchObject({ workout: 1, group: 3 });
+    expect(tue).toMatchObject({ workout: 0, group: 3 });
+    // Miércoles: descanso planificado, Fajr y Corán hechos → día completo
+    expect(wed).toMatchObject({ workout: 0, habits: 1, group: 6, total: 7 });
+  });
+
+  it("antitrampas: marcarlos días después no puntúa", () => {
+    const input = {
+      today: "2026-10-12",
+      settings,
+      habits,
+      habitLogs: [
+        log(fajr.id, "2026-10-05", { created_at: "2026-10-05T05:00:00Z", updated_at: "2026-10-05T05:00:00Z" }),
+        log(quran.id, "2026-10-05", { created_at: "2026-10-08T10:00:00Z", updated_at: "2026-10-08T10:00:00Z" }),
+      ],
+      weights: [],
+      workouts: [],
+      cardio: [],
+      goals: [],
+    };
+    expect(computeDayPoints(leagueContext(input, TZ), "2026-10-05", "2026-10-05")[0].group).toBe(3);
+  });
+
+  it("no puntúan antes de su fecha de inicio", () => {
+    const late = habit({ group_key: "fajr", start_date: "2026-10-07" });
+    const c = ctx({ today: "2026-10-12", habits: [late], habitLogs: [log(late.id, "2026-10-06")] });
+    expect(computeDayPoints(c, "2026-10-06", "2026-10-06")[0].group).toBe(0);
+  });
+});
